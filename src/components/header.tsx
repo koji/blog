@@ -22,8 +22,9 @@ export default ({ titlePre = '' }) => {
         <title>{titlePre ? `${titlePre} |` : ''} Koji Notion Blog</title>
         <meta
           name="description"
-          content="An example Next.js site using Notion for the blog"
+          content="A Next.js site using Notion for the blog"
         />
+        <meta name="keywords" content="koji, kanao, koji kanao, kanao koji" />
         <meta name="og:title" content="My Notion Blog" />
         <meta property="og:image" content={ogImageUrl} />
         <meta name="twitter:site" content="@koji_kanao" />
