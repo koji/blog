@@ -9,7 +9,7 @@ export default () => (
   <>
     <Header titlePre="Home" />
     <div className={sharedStyles.layout}>
-      <img src="/demo.png" width="550" alt="page top" />
+      <img src="/demo.png" width="60%" alt="page top" />
       <h1>Koji Notion Blog</h1>
       <h2></h2>
 
