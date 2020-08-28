@@ -24,6 +24,7 @@ export async function getStaticProps({ params: { slug }, preview }) {
   if (!post || (post.Published !== 'Yes' && !preview)) {
     console.log(`Failed to find post for slug: ${slug}`)
     return {
+      // article data
       props: {
         redirect: '/blog',
         preview: false,
