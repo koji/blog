@@ -9,12 +9,7 @@ export default () => (
   <>
     <Header titlePre="Home" />
     <div className={sharedStyles.layout}>
-      <img
-        src="/vercel-and-notion.png"
-        height="85"
-        width="250"
-        alt="Vercel + Notion"
-      />
+      <img src="/demo.png" height="85" width="250" alt="Vercel + Notion" />
       <h1>Koji Notion Blog</h1>
       <h2>
         Blazing Fast Notion Blog with Next.js'{' '}
