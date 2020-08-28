@@ -11,7 +11,7 @@ const navItems: { label: string; page?: string; link?: string }[] = [
   { label: 'Repo', link: 'https://github.com/koji/blog' },
 ]
 
-const ogImageUrl = 'https://notion-blog.now.sh/og-image.png'
+const ogImageUrl = 'https://koji-notion.vercel.app/demo.png'
 
 export default ({ titlePre = '' }) => {
   const { pathname } = useRouter()
