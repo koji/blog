@@ -1,5 +1,3 @@
-// import { getRepositoryDetails } from '../../utils';
-
 export interface Project {
 	name: string;
 	demoLink: string;
@@ -52,35 +50,4 @@ export const projects: Project[] = [
 		demoLinkRel: 'nofollow noopener noreferrer',
 		tags: ['HRIS', 'Saas']
 	}
-	// {
-	//   ...(await getRepositoryDetails('devaradise/paradise-ui')),
-	//   name: 'Paradise UI',
-	//   demoLink: 'https://paradise-ui.com',
-	//   postLink: 'https://devaradise.com/how-i-build-paradise-ui-react-component-library/',
-	//   tags: ['React', 'UI Library']
-	// },
-	// {
-	//   ...(await getRepositoryDetails('syakirurahman/react-lab')),
-	//   name: 'React Lab',
-	//   demoLink: 'https://devaradise.com/lab/react/',
-	//   tags: ['React']
-	// },
-	// {
-	//   ...(await getRepositoryDetails('syakirurahman/pokemon-catcher')),
-	//   name: 'Pokemon Catcher',
-	//   demoLink: 'https://pokemon-catcher-18636.web.app/',
-	//   tags: ['Hobby']
-	// },
-	// {
-	//   ...(await getRepositoryDetails('syakirurahman/movie-nominations')),
-	//   name: 'Movie Nominations',
-	//   demoLink: 'https://movie-nominations-c21c3.web.app/',
-	//   tags: ['Hobby']
-	// },
-	// {
-	//   ...(await getRepositoryDetails('syakirurahman/organization-tree')),
-	//   name: 'Organization tree',
-	//   demoLink: 'https://organization-tree-2a446.web.app/',
-	//   tags: ['Hobby']
-	// }
 ];
