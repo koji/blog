@@ -1,12 +1,12 @@
 ---
 title: 'Is Flux 1 less likely to adhere to the specified age when the prompt is longer?'
-seoTitle: ''
-slug: ''
+seoTitle: 'Does Flux 1 Struggle with Age Accuracy in Longer Prompts?'
+slug: 'flux-1-age-accuracy-longer-prompts'
 description: ''
 pubDate: '2024-10-14'
 updatedDate: '2024-10-14'
 tags: ['Flux1', 'text-to-image', 'GenAI']
-coverImage: ''
+coverImage: 'cover.png'
 ---
 
 ## What is Flux.1?
