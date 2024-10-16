@@ -3,8 +3,8 @@ title: 'Is Flux 1 less likely to adhere to the specified age when the prompt is 
 seoTitle: 'Does Flux 1 Struggle with Age Accuracy in Longer Prompts?'
 slug: 'flux-1-age-accuracy-longer-prompts'
 description: ''
-pubDate: '2024-10-14'
-updatedDate: '2024-10-14'
+pubDate: '2024-10-15'
+updatedDate: '2024-10-15'
 tags: ['Flux1', 'text-to-image', 'GenAI']
 coverImage: 'cover.png'
 ---
