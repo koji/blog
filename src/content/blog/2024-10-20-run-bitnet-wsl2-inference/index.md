@@ -6,7 +6,6 @@ description: ' Leverage BitNet, a CPU-based framework, to perform rapid inferenc
 pubDate: '2024-10-20'
 updatedDate: '2024-10-20'
 tags: ['ai', 'llm', 'wsl', 'ubuntu']
-coverImage: ''
 ---
 
 ## What is BitNet?
