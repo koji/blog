@@ -13,7 +13,6 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/markdown-remark": "^5.3.0",
     "@astrojs/mdx": "^3.1.8",
-    "@astrojs/partytown": "^2.1.2",
     "@astrojs/rss": "^4.0.9",
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/tailwind": "^5.1.2",
@@ -24,6 +23,7 @@
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
+    "@astrojs/partytown": "^2.1.2",
     "@tailwindcss/typography": "^0.5.15",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1",
