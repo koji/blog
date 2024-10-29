@@ -9,9 +9,6 @@ tags: ['Python', 'OCR', 'pytesseract', 'Gradio', 'Hugging Face', 'Docker']
 coverImage: 'orc_cover.png'
 ---
 
-
-# Building an Image Text Extractor with Python, Gradio, and Hugging Face
-
 Extracting text from images, known as Optical Character Recognition (OCR), is a valuable feature for applications in document processing, data extraction, and accessibility. In this guide, we will create an OCR app using Python libraries like `pytesseract` for OCR, `Pillow` for image processing, and `Gradio` for building an interactive UI. We’ll deploy this app on Hugging Face Spaces.
 
 ## Prerequisites
