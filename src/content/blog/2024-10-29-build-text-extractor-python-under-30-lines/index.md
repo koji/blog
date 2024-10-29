@@ -1,8 +1,8 @@
 ---
-title: 'Build a Text Extractor App with Python, Gradio, and Hugging Face'
-seoTitle: 'How to Build a Text Extractor App using Python, Gradio, and Hugging Face Spaces'
-slug: 'build-text-extractor-python-hugging-face'
-description: 'Learn how to create a deployable text extraction app from images using Python libraries, Gradio, and Hugging Face Spaces. This step-by-step guide covers Docker setup, OCR with pytesseract, and deploying with Hugging Face.'
+title: 'Build a Text Extractor App with Python Code Under 30 Lines Using Gradio and Hugging Face'
+seoTitle: 'Create a Text Extractor App in Python Under 30 Lines with Gradio and Hugging Face'
+slug: 'build-text-extractor-python-under-30-lines'
+description: 'Learn how to create a deployable text extraction app from images using a compact Python script, Gradio for UI, and Hugging Face Spaces for deployment. This guide covers Docker setup, OCR with pytesseract, and more.'
 pubDate: '2024-10-29'
 updatedDate: '2024-10-29'
 tags: ['Python', 'OCR', 'pytesseract', 'Gradio', 'Hugging Face', 'Docker']
