@@ -110,4 +110,4 @@ This setup includes:
 ### Step 4: Push All Files to Hugging Face Spaces
 With all files created, push them to your Hugging Face Space
 
-<video src="./image_text_extractor.mov"></video>
+<video src="https://github.com/user-attachments/assets/d7f0f74f-a422-4b52-8d8d-a78c4cf928a7"></video>
