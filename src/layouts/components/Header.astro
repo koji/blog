@@ -34,7 +34,9 @@ const GITHUB_LINK = 'https://github.com/koji/blog';
 			</h2>
 			<div class='flex items-center'>
 				<a class='p-3 dark:hidden' href={LINKEDIN_URL} target='_blank'
-					><Image src={LinkedInBlack} width={32} height={32} alt='LinkedIn logo Black' /></a
+					><div class='bg-gray-800 h-8 w-8 rounded-lg'>
+						<Image src={LinkedInBlack} width={32} height={32} alt='LinkedIn logo Black' />
+					</div></a
 				>
 				<a class='p-3 hidden dark:block' href={LINKEDIN_URL} target='_blank'
 					><div class='bg-white h-8 w-8 rounded-lg'>
