@@ -1,5 +1,5 @@
 ---
-title: '6 Easy Ways to Run LLM Locally + Alpha: A Comprehensive Guide'
+title: '6 Easy Ways to Run LLM Locally + Alpha'
 seoTitle: 'Run LLM Locally: 6 User-Friendly Tools for AI Enthusiasts'
 slug: '6-easy-ways-to-run-llm-locally'
 description: 'Discover six user-friendly tools to run large language models (LLMs) locally on your computer. From LM Studio to NextChat, learn how to leverage powerful AI capabilities offline, ensuring privacy and control over your data. Perfect for developers, AI enthusiasts, and privacy-conscious users.'
