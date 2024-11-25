@@ -6,6 +6,7 @@ description: 'Learn how to run SAMURAI, a zero-shot visual tracking model based 
 pubDate: '2024-11-25'
 updatedDate: '2024-11-25'
 tags: ['google-colab', 'samurai', 'motion-tracking', 'python', 'machine-learning']
+coverImage: './cover.png'
 ---
 
 ## What is Samurai?
