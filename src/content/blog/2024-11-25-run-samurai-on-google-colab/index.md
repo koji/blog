@@ -168,7 +168,7 @@ Inference will take a while.
 
 If everything goes well, you should see the following output:
 
-<video src="./cat-20.mov" controls></video>
+<video src="https://github.com/user-attachments/assets/edb2a72a-fd32-41dd-87dd-d74e730dd677" controls></video>
 
 All the code is available on [this GitHub repository](https://github.com/koji/GoogleColab/blob/main/Samurai.ipynb).
 
