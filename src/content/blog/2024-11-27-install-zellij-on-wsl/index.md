@@ -3,8 +3,8 @@ title: 'Install Zellij on WSL'
 seoTitle: 'How to Install Zellij Terminal Multiplexer on Windows Subsystem for Linux (WSL)'
 slug: 'install-zellij-on-wsl'
 description: 'A step-by-step guide to installing Zellij, a powerful terminal workspace and multiplexer, on Windows Subsystem for Linux (WSL). Learn how to set up WSL, install Rust, and get Zellij running on your system.'
-pubDate: '202x-11-27'
-updatedDate: '202x-11-27'
+pubDate: '2024-11-27'
+updatedDate: '2024-11-27'
 tags: ['WSL', 'zellij', 'Windows', 'Linux']
 coverImage: 'cover.png'
 ---
