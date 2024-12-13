@@ -1,6 +1,6 @@
 ---
-title: 'Building 5 AI Agents with phidata and Ollama Local LLM'
-seoTitle: 'How to Build AI Agents with phidata and Ollama Local LLM'
+title: 'Building 5 AI Agents with phidata and Ollama'
+seoTitle: 'How to Build AI Agents with phidata and Ollama'
 slug: 'build-ai-agents-phidata-ollama'
 description: 'Discover how to create AI agents for web search, financial analysis, reasoning, and retrieval-augmented generation using phidata and the Ollama local LLM.'
 pubDate: '2024-12-12'
