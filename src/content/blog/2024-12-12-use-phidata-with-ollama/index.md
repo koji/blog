@@ -5,7 +5,7 @@ slug: 'build-ai-agents-phidata-ollama'
 description: 'Discover how to create AI agents for web search, financial analysis, reasoning, and retrieval-augmented generation using phidata and the Ollama local LLM.'
 pubDate: '2024-12-12'
 updatedDate: '2024-12-12'
-tags: ['AI Agents', 'phidata', 'Ollama', 'Local LLM', 'Machine Learning', 'Python', 'Web Search', 'Financial Analysis', 'rag', 'LLM']
+tags: ['Agents', 'phidata', 'Ollama', 'Local LLM', 'python', 'LLM', 'RAG', 'ai']
 ---
 
 In this article, we will explore how to create AI agents for web search, financial analysis, reasoning, and retrieval-augmented generation using phidata and the Ollama local LLM. The code uses llama3.2 model. If you want to use a different model, you will need to download the model you want to use and replace the model_id variable in the code.
