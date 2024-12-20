@@ -48,7 +48,7 @@ uv init phidata-ollama
 ## Install Dependencies
 
 ```shell
-uv add phidata ollama duckduckgo-search yfinance pypdf lancedb tantivy
+uv add phidata ollama duckduckgo-search yfinance pypdf lancedb tantivy sqlalchemy
 ```
 
 In this article, we will try to create 5 AI agents with phidata and Ollama.
