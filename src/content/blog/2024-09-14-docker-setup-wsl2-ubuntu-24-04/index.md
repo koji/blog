@@ -4,7 +4,7 @@ seoTitle: 'How to Easily Set Up Docker on WSL2 with Ubuntu 24.04'
 slug: 'docker-setup-wsl2-ubuntu-24-04'
 description: 'Learn how to set up Docker on WSL2 with Ubuntu 24.04 in this step-by-step guide. Streamline your development environment on Windows with Linux integration through WSL2.'
 pubDate: '2024-09-14'
-updatedDate: '2024-09-14'
+updatedDate: '2024-12-22'
 tags: ['Windows', 'Linux', 'WSL']
 coverImage: 'wsl.png'
 ---
@@ -29,7 +29,14 @@ wsl --list --online
 wsl --install -d Ubuntu-24.04
 ```
 
-## Step4. install docker
+## Step4. install curl and packages
+```shell
+sudo apt -y update
+sudo apt -y install curl
+sudo apt -y install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+```
+
+## Step5. install docker
 
 ```shell
 curl -fsSL https://get.docker.com -o get-docker.sh
@@ -39,7 +46,7 @@ sudo sh get-docker.sh
 docker -v
 ```
 
-## Step5. add your account to docker group
+## Step6. add your account to docker group
 
 ```shell
 sudo groupadd docker
