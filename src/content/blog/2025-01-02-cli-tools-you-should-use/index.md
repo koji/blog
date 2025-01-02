@@ -1,8 +1,8 @@
 ---
-title: '16 Essential CLI Tools Every Developer Should Know'
-seoTitle: 'Top 16 CLI Tools for Developers to Boost Productivity'
+title: '17 Essential CLI Tools Every Developer Should Know'
+seoTitle: 'Top 17 CLI Tools for Developers to Boost Productivity'
 slug: 'essential-cli-tools-for-developers'
-description: 'Discover the top 16 command-line tools that can significantly enhance your development workflow and productivity.'
+description: 'Discover the top 17 command-line tools that can significantly enhance your development workflow and productivity.'
 pubDate: '2025-01-02'
 updatedDate: '2025-01-02'
 tags: ['cli', 'productivity', 'tool', 'terminal']
@@ -118,10 +118,17 @@ Here's a detailed breakdown of these essential developer CLI tools:
 
 ## [tldr](https://github.com/tldr-pages/tldr)
 - **Language**: Python
-- **Stars**: 13.6k
+- **Stars**: 52.5k
 - **Alternative**: -
 - **Supported OS**: Linux, macOS, Windows, BSD
 - **Description**: The tldr-pages project is a collection of community-maintained help pages for command-line tools, that aims to be a simpler, more approachable complement to traditional man pages.
 https://tldr.sh/
+
+## [glances](https://github.com/nicolargo/glances)
+- **Language**: Python
+- **Stars**: 27.3k
+- **Alternative**: -
+- **Supported OS**: Linux, macOS, Windows, BSD
+- **Description**: Glances an Eye on your system. A top/htop alternative for GNU/Linux, BSD, Mac OS and Windows operating systems.
 
 
