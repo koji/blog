@@ -6,7 +6,7 @@ description: 'Discover the top 11 command-line tools that can significantly enha
 pubDate: '2025-01-02'
 updatedDate: '2025-01-02'
 tags: ['cli', 'productivity', 'tool', 'terminal']
-coverImage: ''
+coverImage: './cover.png'
 ---
 
 Here's a detailed breakdown of these essential developer CLI tools:
