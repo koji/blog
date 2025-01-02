@@ -1,8 +1,8 @@
 ---
-title: '11 Essential CLI Tools Every Developer Should Know'
-seoTitle: 'Top 11 CLI Tools for Developers to Boost Productivity'
+title: '16 Essential CLI Tools Every Developer Should Know'
+seoTitle: 'Top 16 CLI Tools for Developers to Boost Productivity'
 slug: 'essential-cli-tools-for-developers'
-description: 'Discover the top 11 command-line tools that can significantly enhance your development workflow and productivity.'
+description: 'Discover the top 16 command-line tools that can significantly enhance your development workflow and productivity.'
 pubDate: '2025-01-02'
 updatedDate: '2025-01-02'
 tags: ['cli', 'productivity', 'tool', 'terminal']
@@ -88,6 +88,40 @@ Here's a detailed breakdown of these essential developer CLI tools:
 - **Supported OS**: Linux, macOS, Windows, BSD
 - **Description**: A lightweight command-line JSON processor that can slice, filter, map, and transform structured data
 
+## [the fuck](https://github.com/nvbn/thefuck)
+- **Language**: Python
+- **Stars**: 88.4k
+- **Alternative**: -
+- **Supported OS**: Linux, macOS, Windows, BSD
+- **Description**: the fuck is a command line tool that corrects errors in previous console commands
 
+## [lazydocker](https://github.com/jesseduffield/lazydocker)
+- **Language**: Go
+- **Stars**: 39.7k
+- **Alternative**: docker
+- **Supported OS**: Linux, macOS, Windows, BSD
+- **Description**: The lazier way to manage everything docker
+
+## [lazygit](https://github.com/jesseduffield/lazygit)
+- **Language**: Go
+- **Stars**: 54.7k
+- **Alternative**: git
+- **Supported OS**: Linux, macOS, Windows, BSD
+- **Description**: simple terminal UI for git commands
+
+## [speedtest-cli](https://github.com/sivel/speedtest-cli)
+- **Language**: Python
+- **Stars**: 13.6k
+- **Alternative**: -
+- **Supported OS**: Linux, macOS, Windows, BSD
+- **Description**: Command line interface for testing internet bandwidth using speedtest.net
+
+## [tldr](https://github.com/tldr-pages/tldr)
+- **Language**: Python
+- **Stars**: 13.6k
+- **Alternative**: -
+- **Supported OS**: Linux, macOS, Windows, BSD
+- **Description**: The tldr-pages project is a collection of community-maintained help pages for command-line tools, that aims to be a simpler, more approachable complement to traditional man pages.
+https://tldr.sh/
 
 
