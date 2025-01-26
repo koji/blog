@@ -50,7 +50,7 @@ docker -v
 
 ```shell
 sudo groupadd docker
-sudo usermod -aG docker <your_account_name>
+sudo usermod -aG docker $USER
 ```
 
 ## Optional
