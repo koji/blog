@@ -6,7 +6,6 @@ description: "Learn how to run the Ollama DeepSeek-R1:32GB model on Google Colab
 pubDate: '2025-01-28'
 updatedDate: '2025-01-28'
 tags: ['python', 'ollama', 'google colab']
-coverImage: ''
 ---
 
 ## What is Ollama?
