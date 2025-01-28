@@ -3,8 +3,8 @@ title: ''
 seoTitle: ''
 slug: ''
 description: ''
-pubDate: '202x-xx-xx'
-updatedDate: '202x-xx-xx'
+pubDate: '2025-xx-xx'
+updatedDate: '2025-xx-xx'
 tags: []
 coverImage: ''
 ---
