@@ -5,8 +5,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PostsByYear from '../components/PostsByYear.astro';
 
 type BlogPost = CollectionEntry<'blog'>;
-const title = 'All posts'
-const description = 'Articles, guides, tutorials about front-end development.'
+const title = 'All posts on the blog'
+const description = 'Articles, guides, tutorials'
 
 const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
