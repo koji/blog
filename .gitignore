@@ -21,4 +21,5 @@ pnpm-debug.log*
 .DS_Store
 
 # jetbrains setting folder
-.idea/.tool-versions
+.idea/
+.tool-versions
