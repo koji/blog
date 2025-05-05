@@ -5,8 +5,7 @@ slug: 'wsl2-access-issue-error-0x80072745'
 description: 'Troubleshoot WSL2 startup problems including error 0x80072745 and missing LxssManager. Follow step-by-step solutions to restore access via terminal.'
 pubDate: '2025-05-04'
 updatedDate: '2025-05-04'
-tags: ['WSL', 'Windows']
-coverImage: ''
+tags: ['WSL', 'Windows']   
 ---
 
 Here is a troubleshooting guide for when you suddenly become unable to access WSL.
