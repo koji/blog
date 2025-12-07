@@ -46,10 +46,9 @@ The infection leaves specific artifacts on your local machine, particularly targ
 Run the following command in your terminal (at the root of your workspace or home directory) to scan for known malicious file names:
 
 ```bash
-find ./ -name "setup_bun.js" \
-  -o -name "bun_environment.js" \
-  -o -name "cloud.json" \
-  -o -name "actionsSecrets.json" 2>/dev/null
+find . -type d -name "node_modules" -newermt "2025-11-20" -prune 2>/dev/null \
+    | xargs -I {} find $(dirname {}) -name "setup_bun.js" -o -name "bun_environment.js" \
+        -o -name "cloud.json" -o -name "actionsSecrets.json" 2>/dev/null | uniq
 ```
 
 **Result:** If this command returns any file paths, do not execute them. These are strong indicators of a local infection.
