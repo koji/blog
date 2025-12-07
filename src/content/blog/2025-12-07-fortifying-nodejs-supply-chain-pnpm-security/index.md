@@ -106,15 +106,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+      # 1. Setup pnpm environment
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          bun-version: "latest"
+          version: 9
 
-      # save bun audit as JSON
-      - name: Run bun audit (JSON)
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      # 2. Run pnpm audit (save as JSON)
+      - name: Run pnpm audit (JSON)
         run: |
-          bun audit --json > bun-audit.json || true
+          pnpm audit --json > pnpm-audit.json || true
 
       # Run OSV-Scanner via Docker and save JSON results
       - name: Run OSV-Scanner (JSON)
@@ -142,7 +149,7 @@ jobs:
 
       # Upload SARIF to GitHub Code Scanning
       - name: Upload OSV SARIF to GitHub
-        uses: github/codeql-action/upload-sarif@v4
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: osv-results.sarif
 
@@ -152,7 +159,7 @@ jobs:
         with:
           name: security-results
           path: |
-            bun-audit.json
+            pnpm-audit.json
             osv-results.json
 
   # JOB 2: Download results and notify Discord
@@ -170,14 +177,17 @@ jobs:
       - name: Notify Discord
         if: always()
         run: |
-          BUN_ISSUES=""
-          if [ -s bun-audit.json ]; then
-            BUN_ISSUES=$(jq -r '
-              ..
-              | objects
-              | select(.name? and .severity?)
-              | "\(.name)@\(.version // "unknown") (\(.severity))"
-            ' bun-audit.json | sort -u)
+          PNPM_ISSUES=""
+          
+          # 3. Parse pnpm audit JSON
+          if [ -s pnpm-audit.json ]; then
+            # pnpm audit returns an "advisories" object. We map through it.
+            PNPM_ISSUES=$(jq -r '
+              .advisories 
+              | to_entries[] 
+              | .value 
+              | "\(.module_name) (\(.severity))"
+            ' pnpm-audit.json | sort -u)
           fi
 
           OSV_ISSUES=""
@@ -190,12 +200,12 @@ jobs:
             ' osv-results.json | sort -u)
           fi
 
-          if [ -z "$BUN_ISSUES$OSV_ISSUES" ]; then
+          if [ -z "$PNPM_ISSUES$OSV_ISSUES" ]; then
             MESSAGE="✅ **No Issues Found**\nAll security checks passed."
           else
             MESSAGE="🚨 **Security Alert**\n\`\`\`\n"
-            if [ -n "$BUN_ISSUES" ]; then
-              MESSAGE="$MESSAGE[bun audit]\n$BUN_ISSUES\n"
+            if [ -n "$PNPM_ISSUES" ]; then
+              MESSAGE="$MESSAGE[pnpm audit]\n$PNPM_ISSUES\n\n"
             fi
             if [ -n "$OSV_ISSUES" ]; then
               MESSAGE="$MESSAGE[osv-scanner]\n$OSV_ISSUES\n"
