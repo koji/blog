@@ -30,7 +30,7 @@ minimumReleaseAge: 43200 # 43200 minutes = 30 days
 
 **⚠️ The Emergency Hatch:**
 Sometimes you *need* a fresh release immediately—for example, to patch a critical security vulnerability in a library like `react`. In those cases, you can bypass this rule using `minimumReleaseAgeExclude`:
-
+**minimumReleaseAgeExclude** may need the latest pnpm version to work.
 ```yaml
 minimumReleaseAge: 43200
 # Allow urgent security patches for specific libraries
