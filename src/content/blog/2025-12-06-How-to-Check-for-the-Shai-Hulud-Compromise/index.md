@@ -4,7 +4,7 @@ seoTitle: 'How to Check for Shai-Hulud Malware Compromise | Security Guide'
 slug: 'check-shai-hulud-compromise'
 description: 'Learn how to detect the Shai-Hulud malware targeting GitHub, npm, and CI/CD workflows. Follow these 4 critical steps to check if your development environment has been compromised.'
 pubDate: '2025-12-06'
-updatedDate: '2025-12-06'
+updatedDate: '2025-12-07'
 tags: ['Shai Hulud', 'npm', 'javascript', 'cybersecurity']
 coverImage: 'cover.png'
 ---
@@ -23,6 +23,10 @@ The first sign of infection is often "digital graffiti" left behind by the attac
 > `Sha1-Hulud: The Second Coming`
 
 If you see a repository with this description or name, your account access has likely been compromised.
+
+Also you will need to check your [GitHub Security log](https://github.com/settings/security-log).
+
+
 
 ## 2\. Inspect GitHub Workflows
 
