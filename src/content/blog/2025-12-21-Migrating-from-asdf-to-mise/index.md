@@ -1,5 +1,5 @@
 ---
-title: 'Migrating from asdf to mise'
+title: 'Migrating from asdf to mise without the headaches'
 seoTitle: 'Migrating from asdf to mise: a practical guide'
 slug: 'migration-from-asdf-to-mise'
 description: 'A practical walkthrough of switching from asdf to mise, based on a real debugging session.'
