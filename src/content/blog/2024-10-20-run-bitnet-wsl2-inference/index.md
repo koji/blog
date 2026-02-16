@@ -74,7 +74,7 @@ optional arguments:
 
 ### output
 
-<video src="./inference.mp4" controls="true" width="600"></video>
+<video src="./inference.mp4" controls="true" preload="none" width="600"></video>
 
 ```shell
 Write an essay about LLM.
