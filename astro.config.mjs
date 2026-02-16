@@ -4,6 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwind from "@astrojs/tailwind";
 import partytown from "@astrojs/partytown";
 import { autoNewTabExternalLinks } from './src/autoNewTabExternalLinks';
+import { optimizeMediaElements } from './src/optimizeMediaElements';
 
 
 // https://astro.build/config
@@ -17,8 +18,11 @@ export default defineConfig({
   })],
   markdown: {
     extendDefaultPlugins: true,
-    rehypePlugins: [[autoNewTabExternalLinks, {
-      domain: 'localhost:4321'
-    }]]
+    rehypePlugins: [
+      [autoNewTabExternalLinks, {
+        domain: 'localhost:4321'
+      }],
+      optimizeMediaElements
+    ]
   }
 });

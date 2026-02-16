@@ -171,6 +171,6 @@ print(out_ps)
 
 
 I also tested mixing voices with `Gradio` to see what happens:
-<video src="gradio.mp4"></video>
+<video src="gradio.mp4" preload="none"></video>
 
 Combining this with Ollama could lead to some fun experiments.

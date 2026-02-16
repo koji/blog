@@ -100,33 +100,79 @@ const { Content, headings } = await post.render();
 </BaseLayout>
 
 <script async is:inline>
-	const anchors = document.querySelectorAll('.prose h2[id], .prose h3[id]');
-	const links = document.querySelectorAll('nav.toc ul li a');
+	const anchors = Array.from(document.querySelectorAll('.prose h2[id], .prose h3[id]'));
+	const links = Array.from(document.querySelectorAll('nav.toc ul li a'));
 
-	function observeToc() {
-		if (typeof anchors != 'undefined' && anchors != null && typeof links != 'undefined' && links != null) {
-			let scrollTop = window.scrollY;
+	const inactiveClasses = ['border-transparent', 'text-inherit'];
+	const activeClasses = ['bg-[var(--background-surface-color)]', 'border-[var(--soft-border-color)]', 'text-[var(--link-color)]'];
 
-			// highlight the last scrolled-to: set everything inactive first
-			for (const link of links) {
-				link.classList.add('border-transparent', 'text-inherit');
-				link.classList.remove('bg-[var(--background-surface-color)]', 'border-[var(--soft-border-color)]', 'text-[var(--link-color)]');
-			}
-			// then iterate backwards, on the first match highlight it and break
-			for (var i = anchors.length - 1; i >= 0; i--) {
-				if (scrollTop > anchors[i].offsetTop - 80) {
-					links[i].classList.remove('border-transparent', 'text-inherit');
-					links[i].classList.add('bg-[var(--background-surface-color)]', 'border-[var(--soft-border-color)]', 'text-[var(--link-color)]');
-					break;
+	const idToLink = new Map(
+		links
+			.map((link) => {
+				const href = link.getAttribute('href');
+				if (!href || !href.startsWith('#')) return null;
+				return [decodeURIComponent(href.slice(1)), link];
+			})
+			.filter(Boolean)
+	);
+
+	for (const link of links) {
+		link.classList.add(...inactiveClasses);
+		link.classList.remove(...activeClasses);
+	}
+
+	const setActiveLink = (id) => {
+		for (const link of links) {
+			link.classList.add(...inactiveClasses);
+			link.classList.remove(...activeClasses);
+		}
+
+		const activeLink = idToLink.get(id);
+		if (!activeLink) return;
+		activeLink.classList.remove(...inactiveClasses);
+		activeLink.classList.add(...activeClasses);
+	};
+
+	if (anchors.length > 0 && links.length > 0) {
+		const visibleHeadingIndexes = new Set();
+		const anchorIds = anchors.map((anchor) => decodeURIComponent(anchor.id));
+		const anchorToIndex = new Map(anchors.map((anchor, index) => [anchor, index]));
+
+		const updateActiveFromVisibleHeadings = () => {
+			if (visibleHeadingIndexes.size === 0) return;
+			const firstVisibleHeadingIndex = Math.min(...visibleHeadingIndexes);
+			setActiveLink(anchorIds[firstVisibleHeadingIndex]);
+		};
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				for (const entry of entries) {
+					const index = anchorToIndex.get(entry.target);
+					if (typeof index !== 'number') continue;
+
+					if (entry.isIntersecting) {
+						visibleHeadingIndexes.add(index);
+					} else {
+						visibleHeadingIndexes.delete(index);
+					}
 				}
+
+				updateActiveFromVisibleHeadings();
+			},
+			{
+				rootMargin: '-80px 0px -60% 0px',
+				threshold: [0, 1]
 			}
+		);
+
+		for (const anchor of anchors) {
+			observer.observe(anchor);
 		}
 	}
 
-	window.addEventListener('scroll', (event) => {
-		observeToc(event);
-	});
-	window.addEventListener('hashchange', (event) => {
-		observeToc(event);
+	window.addEventListener('hashchange', () => {
+		const hashId = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+		if (!hashId) return;
+		setActiveLink(hashId);
 	});
 </script>
