@@ -3,8 +3,8 @@ title: 'Prevent Hugging Face Spaces from Sleeping with GitHub Actions'
 seoTitle: 'How to Prevent Hugging Face Spaces from Sleeping Using GitHub Actions and Playwright'
 slug: 'prevent-huggingface-spaces-sleep-github-actions'
 description: 'Automatically keep your Hugging Face Space awake using GitHub Actions and agent-browser. Capture daily screenshots and send them to Discord for simple uptime monitoring.'
-pubDate: '2025-02-15'
-updatedDate: '2025-02-15'
+pubDate: '2026-02-15'
+updatedDate: '2026-02-15'
 tags: ['HuggingFace','GitHubActions','Discord']
 coverImage: './cover.png'
 ---
