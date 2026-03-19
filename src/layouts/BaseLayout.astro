@@ -29,8 +29,8 @@ const { title, description, image } = Astro.props;
     {
       GTAG_MEASUREMENT_ID &&
       <>
-        <script type='text/partytown' async src={'https://www.googletagmanager.com/gtag/js?id=' + GTAG_MEASUREMENT_ID}></script>
-        <script type='text/partytown' define:vars={{ GTAG_MEASUREMENT_ID }}>
+        <script is:inline type='text/partytown' async src={'https://www.googletagmanager.com/gtag/js?id=' + GTAG_MEASUREMENT_ID}></script>
+        <script is:inline type='text/partytown' define:vars={{ GTAG_MEASUREMENT_ID }}>
           window.dataLayer = window.dataLayer || [];
           function gtag() {
             dataLayer.push(arguments);

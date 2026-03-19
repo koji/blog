@@ -6,7 +6,6 @@ description: 'A short roundup of OpenClaw-inspired projects, with a focus on lig
 pubDate: '2026-03-18'
 updatedDate: '2026-03-18'
 tags: ['OpenClaw', 'agent', 'llm', 'security', 'self-hosting']
-coverImage: ''
 ---
 
 ## OpenClaw
