@@ -1,10 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@config "../../tailwind.config.mjs";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
 	html {
-		font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 	}
@@ -16,7 +16,8 @@
 		line-height: 1.47;
 	}
 
-	.dark body, .dark {
+	.dark body,
+	.dark {
 		@apply bg-black text-white;
 	}
 
@@ -25,8 +26,13 @@
 		font-size: 0.875rem;
 	}
 
-	h1, h2, h3, h4, h5, h6 {
-		font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 		font-weight: 600;
 	}
 	h1 {
@@ -34,7 +40,7 @@
 		letter-spacing: -0.28px;
 	}
 	h2 {
-		line-height: 1.10;
+		line-height: 1.1;
 	}
 	h3 {
 		line-height: 1.14;
@@ -42,7 +48,9 @@
 	}
 
 	a {
-		transition: color 0.2s ease, text-decoration 0.2s ease;
+		transition:
+			color 0.2s ease,
+			text-decoration 0.2s ease;
 	}
 
 	::selection {
@@ -59,7 +67,7 @@
 		border-radius: 8px;
 		border: 1px solid transparent;
 		font-size: 17px;
-		font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 		transition: all 0.2s ease;
 	}
 	.btn-apple:hover {

@@ -23,10 +23,11 @@ const { projects } = Astro.props;
 
 					{project.stargazers_count !== undefined && (
 						<div class='shrink-0'>
-							<a
-								href={project.html_url}
-								target='_blank'
-								class='tag-apple text-xs flex items-center gap-1'>
+								<a
+									href={project.html_url}
+									target='_blank'
+									rel='noopener noreferrer'
+									class='tag-apple text-xs flex items-center gap-1'>
 								<Image src={GithubBlack} height={12} class='dark:hidden' alt='Github stars' />
 								<Image src={GithubWhite} height={12} class='hidden dark:block' alt='Github stars' />
 								{kFormatter(project.stargazers_count)} stars
