@@ -10,27 +10,24 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/markdown-remark": "^5.3.0",
-    "@astrojs/mdx": "^3.1.9",
-    "@astrojs/rss": "^4.0.10",
-    "@astrojs/sitemap": "^3.2.1",
-    "@astrojs/tailwind": "^5.1.4",
-    "astro": "^4.16.18",
-    "sharp": "^0.33.5",
-    "tailwindcss": "^3.4.17",
+    "@astrojs/check": "^0.9.8",
+    "@astrojs/mdx": "^5.0.3",
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.2",
+    "astro": "^6.1.5",
+    "sharp": "^0.34.5",
+    "tailwindcss": "v3-lts",
     "typescript": "^5.7.2",
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
-    "@astrojs/partytown": "^2.1.2",
-    "@tailwindcss/typography": "^0.5.15",
+    "@astrojs/partytown": "^2.1.6",
+    "@tailwindcss/typography": "^0.5.19",
+    "autoprefixer": "^10.4.20",
     "cz-conventional-changelog": "^3.3.0",
-    "prettier": "^3.4.2",
-    "prettier-plugin-astro": "^0.14.1",
-    "vite": "^5.4.11"
+    "prettier": "^3.8.2",
+    "prettier-plugin-astro": "^0.14.1"
   },
-  "packageManager": "pnpm@8.15.4+sha1.c85a4305534f76d461407b59277b954bac97b5c4",
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"

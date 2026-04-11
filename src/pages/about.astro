@@ -7,13 +7,13 @@ import Prose from '../components/Prose.astro';
 
 <BaseLayout title='About Me' description='Lorem ipsum dolor sit amet'>
 	<div class='container'>
-		<main class='prose text-lg dark:prose-invert'>
+		<main>
 			<article>
 				<div class='w-full md:flex md:items-center gap-16 mb-10'>
-					<div class='text-pretty leading-9'>
-						<h1 class='text-4xl font-bold mb-4'>Hello 👋, Koji Here!</h1>
+					<div class='text-pretty leading-[1.47]'>
+						<h1 class='text-[40px] font-semibold mb-4 text-apple-near-black dark:text-white leading-[1.07] tracking-[-0.28px]'>Hello 👋, Koji Here!</h1>
 						<Prose>
-							<div class='text-lg'>
+							<div class='text-[17px]'>
 								<p>
 									I am a software engineer from Japan. I love sharing what i know. I'm also active on <a
 										href='https://dev.to/0xkoji'
@@ -26,44 +26,46 @@ import Prose from '../components/Prose.astro';
 							</div>
 						</Prose>
 					</div>
-					<Image src={kojiImg} alt='koji' width={300} class='rounded-3xl rotate-3 mx-4 md:mx-0' />
+					<Image src={kojiImg} alt='koji' width={300} class='rounded-apple-lg rotate-3 mx-4 md:mx-0 shadow-apple' />
 				</div>
-				<div>
-					<h4>
-						Experienced Software Engineer | Machine Learning & IoT Enthusiast | Passionate About Building Products That Make a Difference
-					</h4>
-					<p>
-						I’m Koji, a dedicated software engineer with a knack for creating cutting-edge solutions that positively impact people’s lives.
-						With a degree from New York University and a diverse skill set including TypeScript, React, and Python, I thrive in fast-paced
-						environments where I can tackle complex challenges and drive innovative product development.
-					</p>
-					<p>
-						A bit about my journey: At Opentrons, I am developing desktop applications using Electron and touch panel applications for our
-						new robot, Flex. Our main tech stack is React.js and TypeScript.
-					</p>
+				<Prose>
+					<div>
+						<h4>
+							Experienced Software Engineer | Machine Learning & IoT Enthusiast | Passionate About Building Products That Make a Difference
+						</h4>
+						<p>
+							I'm Koji, a dedicated software engineer with a knack for creating cutting-edge solutions that positively impact people's lives.
+							With a degree from New York University and a diverse skill set including TypeScript, React, and Python, I thrive in fast-paced
+							environments where I can tackle complex challenges and drive innovative product development.
+						</p>
+						<p>
+							A bit about my journey: At Opentrons, I am developing desktop applications using Electron and touch panel applications for our
+							new robot, Flex. Our main tech stack is React.js and TypeScript.
+						</p>
 
-					<p>
-						At Ubiquiti, I played a key role in developing a sophisticated web application using React.js, TypeScript, Redux, Node.js, and
-						PostgreSQL. I also explored the exciting intersection of hardware and software, training machine learning models in Python while
-						researching 3D camera possibilities. As a Resident Researcher at NYU ITP (2018-2019), I combined Raspberry Pi and machine
-						learning to prototype creative solutions. I even built a generative art application with openFrameworks and Python, blending my
-						technical expertise with a love for creative expression. Prior to that, I co-founded NGEMS, a web application development
-						company recognized by NYC Media Lab's Combine 2018 cohort. As the lead engineer, I guided the team through the development of
-						innovative applications, earning several awards along the way. Beyond these roles, I’ve always been passionate about blending
-						machine learning, IoT, and art to push boundaries in tech.
-					</p>
-				</div>
+						<p>
+							At Ubiquiti, I played a key role in developing a sophisticated web application using React.js, TypeScript, Redux, Node.js, and
+							PostgreSQL. I also explored the exciting intersection of hardware and software, training machine learning models in Python while
+							researching 3D camera possibilities. As a Resident Researcher at NYU ITP (2018-2019), I combined Raspberry Pi and machine
+							learning to prototype creative solutions. I even built a generative art application with openFrameworks and Python, blending my
+							technical expertise with a love for creative expression. Prior to that, I co-founded NGEMS, a web application development
+							company recognized by NYC Media Lab's Combine 2018 cohort. As the lead engineer, I guided the team through the development of
+							innovative applications, earning several awards along the way. Beyond these roles, I've always been passionate about blending
+							machine learning, IoT, and art to push boundaries in tech.
+						</p>
+					</div>
 
-				<h4>What’s next?</h4>
-				<p>
-					I’m actively seeking my next challenge in software engineering, where I can continue to fuse creativity and technology. If you’re
-					looking for someone who brings a unique mix of technical proficiency, creative problem-solving, and a drive to make meaningful
-					impact, let’s connect!
-				</p>
-				<p>
-					Feel free to reach out to me here on <a href='https://www.linkedin.com/in/kojikanao' target='_blank'>LinkedIn</a>—I’m always open
-					to new opportunities and collaborations!
-				</p>
+					<h4>What's next?</h4>
+					<p>
+						I'm actively seeking my next challenge in software engineering, where I can continue to fuse creativity and technology. If you're
+						looking for someone who brings a unique mix of technical proficiency, creative problem-solving, and a drive to make meaningful
+						impact, let's connect!
+					</p>
+					<p>
+						Feel free to reach out to me here on <a href='https://www.linkedin.com/in/kojikanao' target='_blank'>LinkedIn</a>—I'm always open
+						to new opportunities and collaborations!
+					</p>
+				</Prose>
 			</article>
 		</main>
 	</div>

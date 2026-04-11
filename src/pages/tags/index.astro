@@ -54,21 +54,18 @@ const description = 'Post tags: concise keywords categorizing content for easy n
 <BaseLayout title={title} description={description}>
 	<div class='container'>
     <div class="mb-10">
-      <h1 class="text-3xl font-bold mb-2">{title}</h1>
-      <p class="text-zinc-700 dark:text-zinc-300 text-lg">{description}</p>
+      <h1 class="text-[40px] font-semibold mb-2 text-apple-near-black dark:text-white leading-[1.10] tracking-[-0.28px]">{title}</h1>
+      <p class="text-black/80 dark:text-white/80 text-[17px] leading-[1.47] tracking-[-0.374px]">{description}</p>
     </div>
     <div>
       {groupedTags.map(({ letter, tags }) => (
-        <div class="flex gap-2 border-b dark:border-b-zinc-700 py-3 mb-5 capitalize">
-          <h2 class="text-2xl font-bold text-zinc-800 dark:text-zinc-200 w-7 shrink-0">{letter}</h2>
-          <div class='flex gap-2 flex-wrap'>
+        <div class="flex gap-3 border-b border-black/10 dark:border-white/10 py-4 mb-5 capitalize">
+          <h2 class="text-[28px] font-semibold text-apple-near-black dark:text-white w-8 shrink-0 tracking-[0.196px] leading-[1.14]">{letter}</h2>
+          <div class='flex gap-2 flex-wrap items-center'>
             {
               (tags || [] )?.map((tag: Tag) => (
                 <a
-                  class='border border-zinc-300 dark:border-zinc-700 rounded-2xl
-                    text-sm text-zinc-700 dark:text-zinc-300 no-underline px-3 py-1
-                    transition-all duration-700
-                  hover:border-zinc-700 dark:hover:border-zinc-300'
+                  class='tag-apple'
                   href={`/tags/${tag.value}/`}>
                   {tag.label} ({tag.postCount})
                 </a>

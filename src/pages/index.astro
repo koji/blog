@@ -17,8 +17,8 @@ const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b
 >
   <div class='container'>
     <div class="mb-10">
-      <h1 class="text-3xl font-bold mb-2">{title}</h1>
-      <p class="text-zinc-700 dark:text-zinc-300 text-lg">{description}</p>
+      <h1 class="text-[40px] font-semibold mb-2 text-apple-near-black dark:text-white leading-[1.10] tracking-[-0.28px]">{title}</h1>
+      <p class="text-black/80 dark:text-white/80 text-[17px] leading-[1.47] tracking-[-0.374px]">{description}</p>
     </div>
     <PostsByYear posts={posts}/>
   </div>

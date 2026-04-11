@@ -1,5 +1,5 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
+import { type CollectionEntry, getCollection, render } from 'astro:content';
 import Prose from '../components/Prose.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
@@ -14,7 +14,7 @@ const { GISCUS_REPO, GISCUS_REPO_ID, GISCUS_CATEGORY, GISCUS_CATEGORY_ID } = loa
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
 	return posts.map((post: any) => ({
-		params: { slug: post.slug },
+		params: { slug: post.id },
 		props: post
 	}));
 }
@@ -23,7 +23,7 @@ const post = Astro.props;
 const {
 	data: { title, seoTitle, description, coverImage, pubDate, updatedDate, tags }
 } = post;
-const { Content, headings } = await post.render();
+const { Content, headings } = await render(post);
 ---
 
 <BaseLayout title={seoTitle || title} description={description} image={coverImage?.src || undefined}>
@@ -34,17 +34,14 @@ const { Content, headings } = await post.render();
 			<article>
 				<Prose>
 					<div>
-						<h1 class='!my-1 leading-tight'>{title}</h1>
-            <div class='text-sm font-[500] mt-2 sm:mt-0 py-1 md:text-right flex flex-col sm:flex-row gap-3 sm:justify-between sm:items-center'>
+						<h1 class='!my-1 leading-[1.07] text-apple-near-black dark:text-white tracking-[-0.28px]'>{title}</h1>
+            <div class='text-sm mt-2 sm:mt-0 py-1 md:text-right flex flex-col sm:flex-row gap-3 sm:justify-between sm:items-center tracking-[-0.224px]'>
               {
                 <div class='flex gap-2'>
                   {
                     (tags || [] )?.map((tag: string) => (
                       <a
-                        class='border border-zinc-300 dark:border-zinc-700 rounded-2xl
-                          text-sm text-zinc-700 dark:text-zinc-300 no-underline px-2 py-0.5
-                          transition-all duration-700
-                        hover:border-zinc-700 dark:hover:border-zinc-300'
+                        class='tag-apple'
                         href={`/tags/${slugify(tag)}`}>
                         {tag}
                       </a>
@@ -52,18 +49,18 @@ const { Content, headings } = await post.render();
                   }
                 </div>
               }
-              <div>
+              <div class='text-black/48 dark:text-white/48'>
                 {
                   updatedDate ?
-                    <>Updated on <strong><FormattedDate date={updatedDate} /></strong></>
+                    <>Updated on <strong class='text-apple-near-black dark:text-white font-semibold'><FormattedDate date={updatedDate} /></strong></>
                   :
-                    <>Published on <strong><FormattedDate date={pubDate} /></strong></>
+                    <>Published on <strong class='text-apple-near-black dark:text-white font-semibold'><FormattedDate date={pubDate} /></strong></>
                 }
               </div>
             </div>
 					</div>
           <div class='py-3 overflow-hidden'>
-            {coverImage && <Image class='rounded-3xl w-full m-0 lg:mb-2' src={coverImage} alt={title} loading='eager' />}
+            {coverImage && <Image class='rounded-apple-lg w-full m-0 lg:mb-2' src={coverImage} alt={title} loading='eager' />}
           </div>
 					<Content />
 				</Prose>
@@ -104,7 +101,7 @@ const { Content, headings } = await post.render();
 	const links = Array.from(document.querySelectorAll('nav.toc ul li a'));
 
 	const inactiveClasses = ['border-transparent', 'text-inherit'];
-	const activeClasses = ['bg-[var(--background-surface-color)]', 'border-[var(--soft-border-color)]', 'text-[var(--link-color)]'];
+	const activeClasses = ['border-blue-500', 'text-blue-600', 'dark:text-blue-400'];
 
 	const idToLink = new Map(
 		links
