@@ -12,7 +12,12 @@ const isActive = href === pathname || href === '/' + subpath?.[0];
 
 <a
 	href={href}
-	class:list={[className, { 'border-b border-zinc-500 dark:border-zinc-300': isActive }, { 'text-zinc-600 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-zinc-50': !isActive }, { 'text-zinc-950 dark:text-zinc-50': isActive }]}
+	class:list={[
+		className,
+		'transition-colors duration-200 tracking-[-0.224px]',
+		{ 'text-apple-near-black dark:text-white font-semibold': isActive },
+		{ 'text-black/48 dark:text-white/48 hover:text-apple-near-black dark:hover:text-white': !isActive }
+	]}
 	{...props}
 >
 	<slot />

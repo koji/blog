@@ -11,15 +11,11 @@ const { projects } = Astro.props;
 <div class='grid grid-cols-12 gap-5'>
 	{
 		projects.map((project: Project) => (
-			<div class='col-span-12 sm:col-span-6 lg:col-span-4 border dark:border-zinc-700 rounded-xl shadow-sm p-5'>
+			<div class='col-span-12 sm:col-span-6 lg:col-span-4 card-apple p-5 shadow-apple'>
 				<div class='flex justify-between items-center'>
 					<div class='flex gap-2'>
 						{(project.tags || [])?.map((tag: string) => (
-							<span
-								class='border border-zinc-300 dark:border-zinc-700 rounded-2xl
-                    text-sm text-zinc-700 dark:text-zinc-300 no-underline px-2 py-0.5
-                    transition-all duration-700
-                  hover:border-zinc-700 dark:hover:border-zinc-300'>
+							<span class='tag-apple text-xs'>
 								{tag}
 							</span>
 						))}
@@ -30,12 +26,7 @@ const { projects } = Astro.props;
 							<a
 								href={project.html_url}
 								target='_blank'
-								class='border border-zinc-300 dark:border-zinc-700 rounded-2xl
-                    text-xs text-zinc-700 dark:text-zinc-300 no-underline px-2 py-0.5
-                    transition-all duration-700
-                  hover:border-zinc-700 dark:hover:border-zinc-300
-                    flex items-center gap-1
-              '>
+								class='tag-apple text-xs flex items-center gap-1'>
 								<Image src={GithubBlack} height={12} class='dark:hidden' alt='Github stars' />
 								<Image src={GithubWhite} height={12} class='hidden dark:block' alt='Github stars' />
 								{kFormatter(project.stargazers_count)} stars
@@ -43,21 +34,21 @@ const { projects } = Astro.props;
 						</div>
 					)}
 				</div>
-				<h3 class='font-semibold my-2'>
-					<a class='underline' href={project.demoLink} target='_blank' rel={project.demoLinkRel}>
+				<h3 class='font-semibold my-3 text-apple-near-black dark:text-white tracking-[0.196px] leading-[1.14]'>
+					<a class='text-apple-link-blue dark:text-apple-bright-blue hover:underline' href={project.demoLink} target='_blank' rel={project.demoLinkRel}>
 						{project.name}
 					</a>
 				</h3>
-				<div class='line-clamp-2 text-zinc-600 dark:text-zinc-300 mb-4 min-h-[50px]'>
+				<div class='line-clamp-2 text-black/80 dark:text-white/80 mb-4 min-h-[50px] text-[15px] leading-[1.47] tracking-[-0.374px]'>
 					<p>{project.description}</p>
 				</div>
 				<div class='flex justify-end gap-3'>
 					{project.postLink && (
-						<a class='underline flex items-center gap-2' href={project.postLink}>
+						<a class='text-apple-link-blue dark:text-apple-bright-blue hover:underline text-sm tracking-[-0.224px] flex items-center gap-2' href={project.postLink}>
 							Article
 						</a>
 					)}
-					<a class='underline flex items-center gap-2' href={project.demoLink} target='_blank' rel={project.demoLinkRel}>
+					<a class='text-apple-link-blue dark:text-apple-bright-blue hover:underline text-sm tracking-[-0.224px] flex items-center gap-2' href={project.demoLink} target='_blank' rel={project.demoLinkRel}>
 						Demo
 						<svg
 							xmlns='http://www.w3.org/2000/svg'

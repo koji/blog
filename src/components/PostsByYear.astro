@@ -31,8 +31,8 @@ const groupedPosts = groupPostsByYear(posts);
 
 {
 	groupedPosts.map(({ year, posts }) => (
-		<div class='mb-8'>
-			<h2 class='text-2xl font-bold mb-4'>{year}</h2>
+		<div class='mb-10'>
+			<h2 class='text-[28px] font-semibold mb-4 text-apple-near-black dark:text-white tracking-[0.196px] leading-[1.14]'>{year}</h2>
 			<div>
 				{posts.map((post: BlogPost, i: number) => (
 					<PostItem post={post} key={`post-${i}`} />

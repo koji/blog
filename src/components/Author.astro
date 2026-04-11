@@ -15,7 +15,7 @@ const { picSize } = Astro.props;
 		target='_blank'
 		rel='noopener noreferrer'
 		class:list={[
-			'rounded-full overflow-hidden shrink-0',
+			'rounded-full overflow-hidden shrink-0 shadow-apple',
 			{ 'w-12 h-12': picSize === 'sm' },
 			{ 'w-[70px] h-[70px]': picSize === 'md' },
 			{ 'w-[90px] h-[90px]': picSize === 'lg' }
@@ -27,13 +27,13 @@ const { picSize } = Astro.props;
 		<div>
 			<a
 				href='https://github.com/koji/blog'
-				class='block font-bold text-inherit hover:text-[var(--link-color)]'
+				class='block font-semibold text-apple-near-black dark:text-white hover:text-apple-link-blue dark:hover:text-apple-bright-blue transition-colors'
 				target='_blank'
 				rel='noopener noreferrer'
 			>
 				koji
 			</a>
 		</div>
-		<small class='avatar__subtitle'>Software Engineer</small>
+		<small class='text-black/48 dark:text-white/48 tracking-[-0.224px]'>Software Engineer</small>
 	</div>
 </div>
