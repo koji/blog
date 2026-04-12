@@ -1,0 +1,47 @@
+{
+  "version": "1.0",
+  "domain": "baxin.pages.dev",
+  "updated": "2026-04-12T20:40:08.992Z",
+  "verification": "maango_vf_1jh9moVbqCQchTFp",
+  "site_type": [
+    "blog",
+    "personal",
+    "saas"
+  ],
+  "description": "We allow AI agents to discover and reference our content for search and real-time responses. AI training on our content, bulk scraping are not permitted.",
+  "permissions": {
+    "training": "block",
+    "search": "allow",
+    "inference": "allow",
+    "scraping": "block"
+  },
+  "bots": {
+    "blocked": [
+      "AI2Bot",
+      "Amazonbot",
+      "Applebot-Extended",
+      "Bytespider",
+      "CCBot",
+      "ClaudeBot",
+      "Cohere-ai",
+      "Diffbot",
+      "FacebookBot",
+      "GPTBot",
+      "Google-Extended",
+      "Meta-ExternalAgent",
+      "Omgilibot",
+      "Timpibot",
+      "anthropic-ai",
+      "img2dataset"
+    ],
+    "allowed": [
+      "ChatGPT-User",
+      "OAI-SearchBot",
+      "PerplexityBot",
+      "YouBot"
+    ]
+  },
+  "contact": "baxin1919@gmail.com",
+  "policy_url": "https://maango.io/policy/baxin.pages.dev",
+  "generated_by": "maango.io"
+}
