@@ -1,18 +1,16 @@
 {
   "version": "1.0",
   "domain": "baxin.pages.dev",
-  "updated": "2026-04-12T20:40:08.992Z",
-  "verification": "maango_vf_1jh9moVbqCQchTFp",
+  "updated": "2026-04-13T05:55:13.186Z",
+  "verification": "maango_vf_GnksTEMJD25g4Mq9",
   "site_type": [
-    "blog",
-    "personal",
-    "saas"
+    "blog"
   ],
-  "description": "We allow AI agents to discover and reference our content for search and real-time responses. AI training on our content, bulk scraping are not permitted.",
+  "description": "This site does not permit AI agent access. All forms of AI crawling, training, search indexing, and scraping are prohibited.",
   "permissions": {
     "training": "block",
-    "search": "allow",
-    "inference": "allow",
+    "search": "block",
+    "inference": "block",
     "scraping": "block"
   },
   "bots": {
@@ -22,6 +20,7 @@
       "Applebot-Extended",
       "Bytespider",
       "CCBot",
+      "ChatGPT-User",
       "ClaudeBot",
       "Cohere-ai",
       "Diffbot",
@@ -29,19 +28,17 @@
       "GPTBot",
       "Google-Extended",
       "Meta-ExternalAgent",
+      "OAI-SearchBot",
       "Omgilibot",
+      "PerplexityBot",
       "Timpibot",
+      "YouBot",
       "anthropic-ai",
       "img2dataset"
     ],
-    "allowed": [
-      "ChatGPT-User",
-      "OAI-SearchBot",
-      "PerplexityBot",
-      "YouBot"
-    ]
+    "allowed": []
   },
-  "contact": "baxin1919@gmail.com",
+  "contact": "",
   "policy_url": "https://maango.io/policy/baxin.pages.dev",
   "generated_by": "maango.io"
 }
