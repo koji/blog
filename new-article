@@ -1,0 +1,63 @@
+#!/usr/bin/env sh
+
+set -eu
+
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+TEMPLATE_PATH="$SCRIPT_DIR/src/content/blog-template/index.md"
+BLOG_ROOT="$SCRIPT_DIR/src/content/blog"
+
+escape_yaml_single_quotes() {
+  printf '%s' "$1" | sed "s/'/''/g"
+}
+
+escape_sed_replacement() {
+  printf '%s' "$1" | sed 's/[&|]/\\&/g'
+}
+
+if [ ! -f "$TEMPLATE_PATH" ]; then
+  echo "Template not found: $TEMPLATE_PATH" >&2
+  exit 1
+fi
+
+printf 'Title: '
+IFS= read -r TITLE
+
+if [ -z "$TITLE" ]; then
+  echo 'Title cannot be empty.' >&2
+  exit 1
+fi
+
+SLUG=$(printf '%s' "$TITLE" \
+  | tr '[:upper:]' '[:lower:]' \
+  | sed -E 's/[^a-z0-9]+/-/g; s/^-+//; s/-+$//; s/-+/-/g')
+
+if [ -z "$SLUG" ]; then
+  echo 'Could not derive a slug from the title.' >&2
+  exit 1
+fi
+
+DATE=$(date +%F)
+ARTICLE_DIR="$BLOG_ROOT/$DATE-$SLUG"
+ARTICLE_PATH="$ARTICLE_DIR/index.md"
+
+if [ -e "$ARTICLE_DIR" ]; then
+  echo "Directory already exists: $ARTICLE_DIR" >&2
+  exit 1
+fi
+
+TITLE_YAML=$(escape_yaml_single_quotes "$TITLE")
+TITLE_SED=$(escape_sed_replacement "$TITLE_YAML")
+SLUG_SED=$(escape_sed_replacement "$SLUG")
+DATE_SED=$(escape_sed_replacement "$DATE")
+
+mkdir -p "$ARTICLE_DIR"
+
+sed \
+  -e "s|^title: ''$|title: '$TITLE_SED'|" \
+  -e "s|^seoTitle: ''$|seoTitle: '$TITLE_SED'|" \
+  -e "s|^slug: ''$|slug: '$SLUG_SED'|" \
+  -e "s|^pubDate: '.*'$|pubDate: '$DATE_SED'|" \
+  -e "s|^updatedDate: '.*'$|updatedDate: '$DATE_SED'|" \
+  "$TEMPLATE_PATH" > "$ARTICLE_PATH"
+
+printf 'Created %s\n' "$ARTICLE_PATH"
