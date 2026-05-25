@@ -11,7 +11,7 @@ escape_yaml_single_quotes() {
 }
 
 escape_sed_replacement() {
-  printf '%s' "$1" | sed 's/[&|]/\\&/g'
+  printf '%s' "$1" | sed 's/[\\&|]/\\&/g'
 }
 
 if [ ! -f "$TEMPLATE_PATH" ]; then
