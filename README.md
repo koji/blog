@@ -8,7 +8,7 @@ Devolio is a free portfolio and blog template to help you setup your personal we
 ./new-article
 
 # windows
- pwsh ./new-article-win.ps1
+pwsh ./new-article-win.ps1
 ```
 
 Features:
