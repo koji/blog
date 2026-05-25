@@ -3,7 +3,7 @@
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
-$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$scriptDir = $PSScriptRoot
 $templatePath = Join-Path $scriptDir 'src/content/blog-template/index.md'
 $blogRoot = Join-Path $scriptDir 'src/content/blog'
 
