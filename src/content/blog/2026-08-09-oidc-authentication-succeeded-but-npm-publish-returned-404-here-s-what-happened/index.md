@@ -2,7 +2,7 @@
 title: 'OIDC Authentication Succeeded, but npm Publish Returned 404 — Here’s What Happened'
 seoTitle: 'OIDC Authentication Succeeded, but npm Publish Returned 404 — Here’s What Happened'
 slug: 'oidc-authentication-succeeded-but-npm-publish-returned-404-here-s-what-happened'
-description: ''
+description: 'A successful OIDC authentication still resulted in a 404 during npm publish. The issue wasn’t the workflow or package configuration — it was a silently broken Trusted Publisher setup. Re‑creating it resolved the problem instantly.'
 pubDate: '2026-08-09'
 updatedDate: '2026-08-09'
 tags: ['git','npm']
