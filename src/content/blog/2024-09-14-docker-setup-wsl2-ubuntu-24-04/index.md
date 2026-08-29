@@ -30,6 +30,7 @@ wsl --install -d Ubuntu-24.04
 ```
 
 ## Step4. install curl and packages
+
 ```shell
 sudo apt -y update
 sudo apt -y install curl

@@ -9,32 +9,32 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://baxin.pages.dev/',
+	site: 'https://baxin.pages.dev/',
 
-  integrations: [
-      mdx(),
-      sitemap(),
-      partytown({
-          // Adds dataLayer.push as a forwarding-event.
-          config: {
-              forward: ['dataLayer.push']
-          }
-      })
-],
+	integrations: [
+		mdx(),
+		sitemap(),
+		partytown({
+			// Adds dataLayer.push as a forwarding-event.
+			config: {
+				forward: ['dataLayer.push']
+			}
+		})
+	],
 
-  markdown: {
-      rehypePlugins: [
-          [
-              autoNewTabExternalLinks,
-              {
-                  domain: 'localhost:4321'
-              }
-          ],
-          optimizeMediaElements
-      ]
+	markdown: {
+		rehypePlugins: [
+			[
+				autoNewTabExternalLinks,
+				{
+					domain: 'localhost:4321'
+				}
+			],
+			optimizeMediaElements
+		]
 	},
 
-  vite: {
-    plugins: [tailwindcss()]
-  }
+	vite: {
+		plugins: [tailwindcss()]
+	}
 });

@@ -9,29 +9,34 @@ tags: ['ai', 'llm', 'wsl', 'ubuntu']
 ---
 
 ## What is BitNet?
->bitnet.cpp is the official inference framework for 1-bit LLMs (e.g., BitNet b1.58). It offers a suite of optimized kernels, that support fast and lossless inference of 1.58-bit models on CPU (with NPU and GPU support coming next).
+
+> bitnet.cpp is the official inference framework for 1-bit LLMs (e.g., BitNet b1.58). It offers a suite of optimized kernels, that support fast and lossless inference of 1.58-bit models on CPU (with NPU and GPU support coming next).
 
 **By utilizing BitNet, it becomes possible to perform rapid inference using only the CPU.**
 
-
 ## Set up BitNet
+
 ### install packages
+
 ```shell
 # you may need to use sudo if you get a permission error
 bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
 
-# If you have not installed it yet, the following will be necessary. 
+# If you have not installed it yet, the following will be necessary.
 sudo apt install clang
 sudo apt install cmake
 ```
 
 ### clone repo
+
 ```shell
 git clone --recursive https://github.com/microsoft/BitNet.git
 ```
 
 ### create a venv and install python packages
+
 requirement is python 3.9+
+
 ```
 cd  BitNet
 python -m venv bitNetTest
@@ -42,18 +47,21 @@ pip install -r requirements.txt
 ```
 
 ### build
+
 This step will take some time. In my case, it took around 13 minutes
+
 ```shell
 python setup_env.py --hf-repo HF1BitLLM/Llama3-8B-1.58-100B-tokens -q i2_s
 ```
 
-
 ### inference
+
 ```shell
  python run_inference.py -m models/Llama3-8B-1.58-100B-tokens/ggml-model-i2_s.gguf -p "Write an essay about LLM" -t 12 -n 900
 ```
 
 **options**
+
 ```shell
 optional arguments:
   -h, --help            show this help message and exit
@@ -70,7 +78,6 @@ optional arguments:
   -temp TEMPERATURE, --temperature TEMPERATURE
                         Temperature, a hyperparameter that controls the randomness of the generated text
 ```
-
 
 ### output
 

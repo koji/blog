@@ -8,10 +8,10 @@ updatedDate: '2026-02-03'
 tags: ['Clawdbot', 'Discord', 'Node.js', 'pnpm', 'TUI']
 ---
 
-
 ## Clawdbot
->Clears your inbox, sends emails, manages your calendar, checks you in for flights.
-All from WhatsApp, Telegram, or any chat app you already use.
+
+> Clears your inbox, sends emails, manages your calendar, checks you in for flights.
+> All from WhatsApp, Telegram, or any chat app you already use.
 
 https://clawd.bot/
 
@@ -19,6 +19,7 @@ Docs
 https://docs.clawd.bot/start/getting-started
 
 ## Supported platforms
+
 - WhatsApp
 - Telegram
 - Discord
@@ -35,16 +36,16 @@ https://docs.clawd.bot/start/getting-started
 - Gmail
 - GitHub
 
-
-
 ## Install Clawdbot
 
 ### requirements
+
 - Nodejs v22+
-- `pnpm` (recommended) 
-Unfortunately, `bun` is not recommended
+- `pnpm` (recommended)
+  Unfortunately, `bun` is not recommended
 
 ### Step 1: Install Nodejs
+
 ```shell
 # Download and install nvm:
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
@@ -67,6 +68,7 @@ corepack enable pnpm
 # Verify pnpm version:
 pnpm -v
 ```
+
 https://nodejs.org/en/download/current
 
 ```shell
@@ -74,6 +76,7 @@ mise install nodejs 22.22.0
 ```
 
 ### Step 2: Install Clawdbod
+
 ```shell
 curl -fsSL https://clawd.bot/install.sh | bash
 
@@ -83,15 +86,16 @@ clawdbot -v
 ```
 
 ### Step 3: Generate a Discord bot token
+
 Go to https://discord.com/developers/applications and create a new application. In this post, I name `Clawdbot`.
 Go to `Bot` section in the sidebar and turn on the following
 ![Discord_Bot](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tpl49poao7gh1swc3d29.png).
 Then click `Reset Token`, and you can get a bot token. You will need to copy the token for onboarding.
 
-Then go to `OAuth2`, 
-
+Then go to `OAuth2`,
 
 ### Step 4: Clawdbot onboarding
+
 ```shell
 clawdbot onboard --install-daemon
 
@@ -317,7 +321,7 @@ Installed LaunchAgent: /Users/koji/Library/LaunchAgents/com.clawdbot.gateway.pli
 Logs: /Users/koji/.clawdbot/logs/gateway.log
 ◇  Gateway service installed
 │
-◇  
+◇
 Health check failed: gateway closed (1006 abnormal closure (no close frame)): no close reason
   Gateway target: ws://127.0.0.1:18789
   Source: local loopback
@@ -410,6 +414,7 @@ Missing Control UI assets. Build them with `pnpm ui:build` (auto-installs UI dep
 ```
 
 ### Step 5: Check Clawdbot gateway status
+
 ```shell
 clawdbot gateway status
 
@@ -417,7 +422,7 @@ clawdbot gateway status
    If it works, it's automation; if it breaks, it's a "learning opportunity."
 
 │
-◇  
+◇
 Service: LaunchAgent (loaded)
 File logs: /tmp/clawdbot/clawdbot-2026-01-25.log
 Command: /usr/local/bin/node /Users/koji/.npm-global/lib/node_modules/clawdbot/dist/entry.js gateway --port 18789
@@ -442,35 +447,32 @@ Troubleshooting: https://docs.clawd.bot/troubleshooting
 
 If everything works and you have access to http://127.0.0.1:18789/, you will see the following.
 
-
 ![chat](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7qylp1ho0c847pwwvdx2.png)
 
-
 ### Step 6: Send a message to Clawdbot
+
 Now, it's time to send a message to the bot on Discord.
 ![discord](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/txeg8ehceo3b3huccqib.png)
 
-
-
 ![simple research on discord](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/efgyv7bozr2bacfm60vg.png)
 
-
 ### Step 7: Use TUI (Terminal UI)
+
 https://docs.clawd.bot/tui
 
 ```shell
 
 clawdbot tui
 
-                                                               
- hello                                                         
-                                                               
- Hello.                                                        
-                                                               
- If you tell me one thing you want help with today, I’ll take  
- it from there.                                                
- Also: what should I call you?                                 
- connected | idle                                              
- agent main | session main (clawdbot-tui) |                    
- openai-codex/gpt-5.2 | tokens 9.4k/400k (2%)                          
+
+ hello
+
+ Hello.
+
+ If you tell me one thing you want help with today, I’ll take
+ it from there.
+ Also: what should I call you?
+ connected | idle
+ agent main | session main (clawdbot-tui) |
+ openai-codex/gpt-5.2 | tokens 9.4k/400k (2%)
 ```

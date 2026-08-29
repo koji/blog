@@ -20,7 +20,8 @@ Docker version 27.4.0, build bde2b89
 
 ## Update Docker on WSL2
 
-To update Docker on a WSL2 environment, follow these steps:  
+To update Docker on a WSL2 environment, follow these steps:
+
 1. Update the package lists to ensure you have the latest information about available packages:
 
 ```shell

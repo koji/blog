@@ -10,49 +10,56 @@ coverImage: 'cover.jpg'
 ---
 
 ### Prerequisites
+
 Before you begin, ensure you have the following:
 
 1. **WSL (Windows Subsystem for Linux)** installed on your Windows machine.  
- [Learn more about installing WSL](https://learn.microsoft.com/en-us/windows/wsl/install?source=post_page-----9d53151e254a--------------------------------)
+   [Learn more about installing WSL](https://learn.microsoft.com/en-us/windows/wsl/install?source=post_page-----9d53151e254a--------------------------------)
 
 2. **curl**: This is necessary for downloading Ollama.
-  
-  ```zsh
-   sudo apt install curl
-  ```
 
+```zsh
+ sudo apt install curl
+```
 
 ### Step 1: Install Ollama with Curl
+
 Install Ollama using the following command in your terminal:
+
 ```zsh
 curl https://ollama.ai/install.sh | sh
 ```
 
 ### Step 2: Run Ollama
+
 Once installed, you can start Ollama and run the Llama3.2 model. Note that you can explore other available models [here](https://ollama.ai/library).
+
 ```zsh
 ollama serve
 ```
 
-In a new terminal tab, run the following command to pull and start a model: 
+In a new terminal tab, run the following command to pull and start a model:
 
 In this post, we will try to run Llama3.2
 
->Llama 3.2
-The Meta Llama 3.2 collection of multilingual large language models (LLMs) is a collection of pretrained and instruction-tuned generative models in 1B and 3B sizes (text in/text out). The Llama 3.2 instruction-tuned text only models are optimized for multilingual dialogue use cases, including agentic retrieval and summarization tasks. They outperform many of the available open source and closed chat models on common industry benchmarks.
+> Llama 3.2
+> The Meta Llama 3.2 collection of multilingual large language models (LLMs) is a collection of pretrained and instruction-tuned generative models in 1B and 3B sizes (text in/text out). The Llama 3.2 instruction-tuned text only models are optimized for multilingual dialogue use cases, including agentic retrieval and summarization tasks. They outperform many of the available open source and closed chat models on common industry benchmarks.
 
 https://ollama.com/library/llama3.2
+
 ```zsh
 ollama run llama3.2
 ```
+
 You should see output confirming GPU usage if your machine has one (e.g., an RTX3070).
 
 <video src="https://github.com/user-attachments/assets/b78361c6-6a8e-4429-8f47-e87cc564d42b"></video>
 
-
 ### Step 3: Terminate Ollama
+
 To exit Ollama, type:
 If you want to exit Ollama, you need to type the following.
+
 ```zsh
 /bye
 ```

@@ -17,8 +17,8 @@ Below are four steps to verify if your systems have been infected.
 
 The first sign of infection is often "digital graffiti" left behind by the attacker. You need to check your repository list for unauthorized creations or renames.
 
-  * **Navigate to:** `https://github.com/[your-username]?tab=repositories`
-  * **Action:** Scan your repositories or use the search bar for the following phrase:
+- **Navigate to:** `https://github.com/[your-username]?tab=repositories`
+- **Action:** Scan your repositories or use the search bar for the following phrase:
 
 > `Sha1-Hulud: The Second Coming`
 
@@ -26,14 +26,12 @@ If you see a repository with this description or name, your account access has l
 
 Also you will need to check your [GitHub Security log](https://github.com/settings/security-log).
 
-
-
 ## 2\. Inspect GitHub Workflows
 
 The malware often attempts to establish persistence by modifying your GitHub Actions workflows. It specifically targets discussion workflows to run unauthorized code.
 
-  * **How to check:** Search your repositories for a suspicious YAML file.
-  * **Search Query:** Copy and paste the following into the GitHub global search bar (replace `[user/org]` with your actual username or organization):
+- **How to check:** Search your repositories for a suspicious YAML file.
+- **Search Query:** Copy and paste the following into the GitHub global search bar (replace `[user/org]` with your actual username or organization):
 
 <!-- end list -->
 
@@ -69,7 +67,7 @@ npm view [packageName] time
 
 **What to look for:** Review the timestamps of the latest versions. If you see a release timestamp that **you do not remember publishing**, your npm authentication token has been compromised.
 
------
+---
 
 ## ⚠️ What to do if you find these indicators?
 

@@ -9,7 +9,6 @@ tags: ['asdf', 'mise', 'toolchain', 'version-manager', 'cli']
 coverImage: 'cover.png'
 ---
 
-
 ## 1. Remove asdf plugins and uninstall asdf
 
 ```
@@ -29,12 +28,14 @@ clean up `.zshrc`
 ```
 
 remove files
+
 ```shell
 rm -rf ~/.asdf
 rm -rf ~/.tool-versions
 ```
 
 Confirmed that asdf has been deleted.
+
 ```shell
 brew list asdf
 
@@ -47,6 +48,7 @@ Execution time: 0.88s
 
 https://github.com/jdx/mise  
 https://mise.jdx.dev/getting-started.html
+
 ```shell
 brew install mise
 ```
@@ -54,22 +56,24 @@ brew install mise
 ```shell
 # if you install mise successfully, you can see this when running version command
  mise --version
-              _                                        __              
+              _                                        __
    ____ ___  (_)_______        ___  ____        ____  / /___ _________
   / __ `__ \/ / ___/ _ \______/ _ \/ __ \______/ __ \/ / __ `/ ___/ _ \
  / / / / / / (__  )  __/_____/  __/ / / /_____/ /_/ / / /_/ / /__/  __/
 /_/ /_/ /_/_/____/\___/      \___/_/ /_/     / .___/_/\__,_/\___/\___/
                                             /_/                 by @jdx
 2025.12.12 macos-arm64 (2025-12-18)
-Execution time: 0.90s     
+Execution time: 0.90s
 ```
 
 add the following to `.zshrc`. If you use bash or fish, you need to replace `zsh` with `bash`/`fish`
+
 ```shell
 eval "$(mise activate zsh)"
 ```
 
 ## 3. Install mise plugins
+
 In my case, I need to install nodejs, pnpm, bun, yarn, and python.  
 First check available plugins
 
@@ -78,6 +82,7 @@ mise plugins ls-remote
 ```
 
 Also check the core list
+
 ```shell
 mise plugins ls --core
 bun
@@ -106,6 +111,7 @@ mise ls-remote python
 ```
 
 Finally install
+
 ```shell
 mise install node@22.21.1
 mise install yarn@1.22.22
@@ -115,9 +121,10 @@ mise install python@3.12.12
 ```
 
 or you can install them via `mise.toml`
+
 1. create `mise.toml` in your repo folder
 2. add `[tools]` to `mise.toml`
-For this case, the toml file is like below
+   For this case, the toml file is like below
 
 ```toml
 [tools]
@@ -144,18 +151,19 @@ mise install
 ```
 
 ### Check versions
+
 ```shell
 yarn -v
 1.22.22
-Execution time: 0.17s  
+Execution time: 0.17s
 
 node -v
 v22.21.1
-Execution time: 0.03s    
+Execution time: 0.03s
 
 python --version
 Python 3.12.12
-Execution time: 0.04s      
+Execution time: 0.04s
 ```
 
 If you see something like this, probably you are missing adding the `eval` command to your `.zshrc`
@@ -166,21 +174,23 @@ zsh: command not found: node
 ```
 
 You need to add the following to `.zshrc`.
+
 ```shell
 eval "$(mise activate zsh)"
 ```
 
 ## 4. asdf → mise command mapping
-| asdf (modern) | mise equivalent | Notes |
-|--------------|-----------------|-------|
-| `.tool-versions` | `mise.toml` | Project-local tool definitions |
-| `asdf set <tool> <ver>` | Edit `mise.toml` | `asdf set` replaces `asdf local/global` |
-| `asdf set -u <tool> <ver>` | `~/.config/mise/config.toml` | User/global config |
-| `asdf install` | `mise install` | Install all defined tools |
-| `asdf exec <cmd>` | `mise exec -- <cmd>` | Run with pinned tools |
-| `asdf current` | `mise current` | Show active versions |
-| `asdf plugin add <tool>` | *implicit* | mise auto-manages plugins |
-| `asdf plugin list` | `mise ls` | List installed tools |
-| shims | shell activation (`mise activate`) | PATH-based |
-| `.asdf/installs` | `~/.local/share/mise/installs` | Tool installs |
-| `.asdf/shims` | `~/.local/share/mise/shims` | Executable shims |
+
+| asdf (modern)              | mise equivalent                    | Notes                                   |
+| -------------------------- | ---------------------------------- | --------------------------------------- |
+| `.tool-versions`           | `mise.toml`                        | Project-local tool definitions          |
+| `asdf set <tool> <ver>`    | Edit `mise.toml`                   | `asdf set` replaces `asdf local/global` |
+| `asdf set -u <tool> <ver>` | `~/.config/mise/config.toml`       | User/global config                      |
+| `asdf install`             | `mise install`                     | Install all defined tools               |
+| `asdf exec <cmd>`          | `mise exec -- <cmd>`               | Run with pinned tools                   |
+| `asdf current`             | `mise current`                     | Show active versions                    |
+| `asdf plugin add <tool>`   | _implicit_                         | mise auto-manages plugins               |
+| `asdf plugin list`         | `mise ls`                          | List installed tools                    |
+| shims                      | shell activation (`mise activate`) | PATH-based                              |
+| `.asdf/installs`           | `~/.local/share/mise/installs`     | Tool installs                           |
+| `.asdf/shims`              | `~/.local/share/mise/shims`        | Executable shims                        |

@@ -8,7 +8,6 @@ updatedDate: '2025-01-22'
 tags: ['TTS', 'voice synthesis', 'AI', 'python', 'kokoro']
 ---
 
-
 ## What is Kokoro-82M?
 
 Kokoro-82M is a high-performance TTS (Text-to-Speech) model capable of generating high-quality audio. It allows for straightforward text-to-audio conversion and enables easy voice synthesis by applying weights to audio files.
@@ -36,6 +35,7 @@ As the title suggests, the code execution will be done using Google Colab.
 ```
 
 ### Loading Packages
+
 ```python
 import numpy as np
 from scipy.io.wavfile import write
@@ -46,8 +46,8 @@ from models import build_model
 from kokoro import generate
 ```
 
-
 ### Running the Sample
+
 Before testing voice synthesis, let’s run the official sample.
 Running the following code will generate and play audio within a few seconds.
 
@@ -75,6 +75,7 @@ print(out_ps)
 Now, let’s get into the main topic and test voice synthesis.
 
 Defining Voice Packs
+
 - `af`: American English female voice
 - `am`: American English male voice
 - `bf`: British English female voice
@@ -97,8 +98,8 @@ voicepack_bm_george = torch.load(f'voices/bm_george.pt', weights_only=True).to(d
 voicepack_bm_lewis = torch.load(f'voices/bm_lewis.pt', weights_only=True).to(device)
 ```
 
-
 ### Generating Text with Predefined Voices
+
 To check the difference between synthesized voices, let’s generate audio using different voice packs.
 We will use the sample text as is, but you can change the voicepack_ variable to use any desired voice pack.
 
@@ -130,6 +131,7 @@ print(out_ps)
 ```
 
 ### Voice Synthesis
+
 First, let’s create an average voice combining two British female voices (bf).
 
 ```python
@@ -143,6 +145,7 @@ print(out_ps)
 ```
 
 Next, let’s synthesize a combination of two female and one male voice.
+
 ```python
 weight_1 = 0.25
 weight_2 = 0.45
@@ -159,6 +162,7 @@ print(out_ps)
 ```
 
 Finally, let’s synthesize a mix of American and British male voices.
+
 ```python
 m_average = (voicepack_am_michael + voicepack_bm_george) / 2
 audio, out_ps = generate(MODEL,
@@ -168,7 +172,6 @@ audio, out_ps = generate(MODEL,
 display(Audio(data=audio, rate=24000, autoplay=True))
 print(out_ps)
 ```
-
 
 I also tested mixing voices with `Gradio` to see what happens:
 <video src="gradio.mp4" preload="none"></video>

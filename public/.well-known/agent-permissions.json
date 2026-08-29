@@ -1,44 +1,42 @@
 {
-  "version": "1.0",
-  "domain": "baxin.pages.dev",
-  "updated": "2026-04-13T07:40:43.770Z",
-  "verification": "maango_vf_JLwPDkvC3UlGT9LG",
-  "site_type": [
-    "blog"
-  ],
-  "description": "This site does not permit AI agent access. All forms of AI crawling, training, search indexing, and scraping are prohibited.",
-  "permissions": {
-    "training": "block",
-    "search": "block",
-    "inference": "block",
-    "scraping": "block"
-  },
-  "bots": {
-    "blocked": [
-      "AI2Bot",
-      "Amazonbot",
-      "Applebot-Extended",
-      "Bytespider",
-      "CCBot",
-      "ChatGPT-User",
-      "ClaudeBot",
-      "Cohere-ai",
-      "Diffbot",
-      "FacebookBot",
-      "GPTBot",
-      "Google-Extended",
-      "Meta-ExternalAgent",
-      "OAI-SearchBot",
-      "Omgilibot",
-      "PerplexityBot",
-      "Timpibot",
-      "YouBot",
-      "anthropic-ai",
-      "img2dataset"
-    ],
-    "allowed": []
-  },
-  "contact": "",
-  "policy_url": "https://maango.io/policy/baxin.pages.dev",
-  "generated_by": "maango.io"
+	"version": "1.0",
+	"domain": "baxin.pages.dev",
+	"updated": "2026-04-13T07:40:43.770Z",
+	"verification": "maango_vf_JLwPDkvC3UlGT9LG",
+	"site_type": ["blog"],
+	"description": "This site does not permit AI agent access. All forms of AI crawling, training, search indexing, and scraping are prohibited.",
+	"permissions": {
+		"training": "block",
+		"search": "block",
+		"inference": "block",
+		"scraping": "block"
+	},
+	"bots": {
+		"blocked": [
+			"AI2Bot",
+			"Amazonbot",
+			"Applebot-Extended",
+			"Bytespider",
+			"CCBot",
+			"ChatGPT-User",
+			"ClaudeBot",
+			"Cohere-ai",
+			"Diffbot",
+			"FacebookBot",
+			"GPTBot",
+			"Google-Extended",
+			"Meta-ExternalAgent",
+			"OAI-SearchBot",
+			"Omgilibot",
+			"PerplexityBot",
+			"Timpibot",
+			"YouBot",
+			"anthropic-ai",
+			"img2dataset"
+		],
+		"allowed": []
+	},
+	"contact": "",
+	"policy_url": "https://maango.io/policy/baxin.pages.dev",
+	"generated_by": "maango.io"
 }

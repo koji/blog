@@ -12,6 +12,7 @@ coverImage: 'orc_cover.png'
 Extracting text from images, known as Optical Character Recognition (OCR), is a valuable feature for applications in document processing, data extraction, and accessibility. In this guide, we will create an OCR app using Python libraries like `pytesseract` for OCR, `Pillow` for image processing, and `Gradio` for building an interactive UI. We’ll deploy this app on Hugging Face Spaces.
 
 ## Prerequisites
+
 Before starting, you’ll need a [Hugging Face account](https://huggingface.co/join) and basic familiarity with Docker.
 
 ## Step-by-Step Guide
@@ -62,6 +63,7 @@ CMD ["python", "app.py"]
 ```
 
 ### Step 3: Create the OCR Application
+
 1. Create a file called app.py with the following content:
 
 ```python
@@ -96,6 +98,7 @@ iface.launch(server_name="0.0.0.0", server_port=7860)
 ```
 
 2. Create a requirements.txt file to specify the dependencies:
+
 ```
 gradio
 pytesseract
@@ -103,11 +106,13 @@ Pillow
 ```
 
 This setup includes:
+
 - Image Upload: gr.Image(type="filepath") allows users to upload images as file paths, which pytesseract processes.
 - Text Extraction: pytesseract.image_to_string extracts text from the image.
 - User Interface: Gradio generates a simple UI for users to upload an image and view extracted text.
 
 ### Step 4: Push All Files to Hugging Face Spaces
+
 With all files created, push them to your Hugging Face Space
 
 <video src="https://github.com/user-attachments/assets/d7f0f74f-a422-4b52-8d8d-a78c4cf928a7"></video>
