@@ -11,8 +11,6 @@ coverImage: './cover.png'
 
 Windows Subsystem for Linux 2 (WSL2) on Windows 11 makes it possible to run Linux distributions with full GUI support, thanks to **WSLg**. In this article, I’ll walk through the steps I used to install **Kali Linux on WSL2** and set up a graphical environment that allows GUI applications like **xeyes** and **Firefox** to run seamlessly.
 
-
-
 ## Step 1: Install Kali Linux on WSL
 
 First, open **Terminal** (PowerShell or Windows Terminal) as an administrator and run the following command:
@@ -101,9 +99,9 @@ With Windows 11 and WSL2, running Kali Linux GUI applications has become extreme
 
 This setup is especially useful for:
 
-* Security testing tools in Kali Linux
-* Linux GUI application development
-* Learning and experimenting with Linux on Windows
+- Security testing tools in Kali Linux
+- Linux GUI application development
+- Learning and experimenting with Linux on Windows
 
 If you haven’t tried WSLg yet, Windows 11 makes it an excellent time to do so.
 

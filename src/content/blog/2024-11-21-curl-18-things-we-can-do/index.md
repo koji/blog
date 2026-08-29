@@ -5,7 +5,7 @@ slug: 'curl-ip-lookup-qr-code-weather-crypto'
 description: 'Unlock the full potential of cURL! This step-by-step guide covers everything from checking your IP, generating QR codes, viewing weather reports, and tracking cryptocurrency rates with simple commands. Perfect for developers and tech enthusiasts alike!'
 pubDate: '2024-11-21'
 updatedDate: '2024-11-21'
-tags: ["cURL", "IP Lookup", "QR Code", "Weather Report", "Cryptocurrency", "Tech Tips", "Command Line"]
+tags: ['cURL', 'IP Lookup', 'QR Code', 'Weather Report', 'Cryptocurrency', 'Tech Tips', 'Command Line']
 coverImage: './cover.jpg'
 ---
 
@@ -32,8 +32,10 @@ $ curl ipinfo.io
 ```
 
 ### generate QR code
+
 The following is a QR code to access my personal website.
 `/` you can put anything you want to show(string, number, and url).
+
 ```zsh
 $ curl qrenco.de/https://github.com/koji
 █████████████████████████████████
@@ -56,6 +58,7 @@ $ curl qrenco.de/https://github.com/koji
 ```
 
 we can create a function with the above command. Open .bashrc or .zshrc and add the following.
+
 ```zsh
 # generate qr code
 gen_qr() {
@@ -65,14 +68,15 @@ gen_qr() {
 ```
 
 [usage]
+
 ```zsh
 gen_qr https://github.com/koji
 ```
 
-
-
 ### get weather info
+
 If you change after `/`, you can see the weather that you want to know.
+
 ```zsh
 $ curl wttr.in/newyork
 Weather report: newyork
@@ -115,6 +119,7 @@ Weather report: newyork
 ```
 
 we can create a function with the above command. Open .bashrc or .zshrc and add the following.
+
 ```zsh
 # wttr - check weather
 wttr() {
@@ -123,13 +128,15 @@ wttr() {
 ```
 
 [usage]
+
 ```zsh
 wttr newyork
 ```
 
-
 ### get cryptocurrency rate
+
 The `rate.sx` shows you famous currencies' rate. If you put a specific currency, you can see the rate and a chart of the currency.
+
 ```zsh
 $ curl rate.sx
 
@@ -208,8 +215,8 @@ avg: $1938.5 // median: $1915.5 // change: -84.524 (-4.35%)
 Use @ for interval specification: /btc@10d, /eth@4w, /xrp@January (more in /:help)
 ```
 
-
 we can create a function with the above command. Open .bashrc or .zshrc and add the following.
+
 ```zsh
 # crypto_rate
 crypto_rate() {
@@ -232,15 +239,12 @@ crypto_rate() {
 ```
 
 [usage]
+
 ```zsh
 crypto_rate # for top cryptocurrencies
 crypto_rate btc # for btc
 crypto_rate eth # for eth
 ```
-
-
-
-
 
 ### Watch animation on Terminal
 
@@ -276,15 +280,14 @@ lllcccccccccllllllll;.ol .. oK0Ok0Ox000.:kOxc:do;od,ckO;
                                                           lk
 ```
 
-
 we can create a function with the above command.
 https://gist.github.com/koji/666f60f44ae3d980dd62ebdd24436511
 
 [usage]
+
 ```zsh
 ascii_live
 ```
-
 
 ### get a page
 
@@ -400,6 +403,7 @@ $ curl -H 'Authorization: Bearer xxxxxxxx' https://api.com
 ```
 
 ### generate a curl command from Google Chrome
+
 Open DevTool > Network > right click `name` > copy > `copy as cURL` or `copy all as cURL`
 
 ![Alt Text](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/epki7szl0zakix88xkkz.png)
@@ -426,18 +430,22 @@ curl 'chrome-extension://jlmpjdjjbgclbocgajdjefcidcncaied/standalone/stand
 ```
 
 ### Send Cookie
+
 ```zsh
 $ curl -b 'key=value; key2=value2;' https://test.cookie.com
 $ curl --cookie 'key=value; key2=value2;' https://test.cookie.com
 ```
 
 ### Save Cookie
+
 ```zsh
 $ curl -c cookie.txt https://test.cookie.com
 ```
 
 ### Send back Cookie
+
 Send back stored cookie file, cookie.txt
+
 ```zsh
 $ curl -b cookie.txt https://test.cookie.com
 ```
@@ -454,8 +462,10 @@ $ curl -F file_name=@sample.txt https://uploader.com
 $ curl https://dev.to -s -o /dev/null -w "%{time_total}\n"
 0.150539
 ```
+
 Only one-time measurement doesn't make sense lol
 The following is do the same thing 10 times and calc the average.
+
 ```zsh
 $ for i in {1..10}; do curl https://dev.to -s -o /dev/null -w "%{time_total}\n";done | awk '{sum+=$1;print $1} END {print "AVG: " sum/NR}'
 
@@ -471,7 +481,7 @@ $ for i in {1..10}; do curl https://dev.to -s -o /dev/null -w "%{time_total}\n";
 0.131222
 0.162784
 AVG: 0.170523
-``` 
+```
 
 we can create a function with the above command.
 
@@ -532,10 +542,11 @@ check_site() {
 ```
 
 [usage]
+
 ```zsh
-Enter the website URL: 
+Enter the website URL:
 http://google.com
-Enter the number of checks to perform (average): 
+Enter the number of checks to perform (average):
 10
 Average response time for http://google.com over 10 checks: 1.24 seconds
 ```

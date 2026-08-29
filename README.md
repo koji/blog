@@ -3,6 +3,7 @@
 Devolio is a free portfolio and blog template to help you setup your personal website quickly.
 
 ## add an article
+
 ```shell
 # mac/linux
 ./new-article

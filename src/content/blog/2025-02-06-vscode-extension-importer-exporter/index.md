@@ -14,6 +14,7 @@ coverImage: './cover.jpg'
 If you use Visual Studio Code across multiple devices or frequently reinstall your system, manually reinstalling extensions can be tedious. This simple shell script automates the process by exporting and importing your VSCode extensions with a single command.
 
 ### Step 1: Save the Script
+
 Copy the following script and save it as `vscode-extension-importer-exporter.sh` in your home directory:
 
 ```shell
@@ -38,6 +39,7 @@ fi
 ```
 
 ### Step 2: Make the Script Executable
+
 After saving the script, give it execution permission by running:
 
 ```shell
@@ -45,6 +47,7 @@ chmod +x vscode-extension-importer-exporter.sh
 ```
 
 ### Step 3: Run the Script
+
 To execute the script, use the following command:
 
 ```shell
@@ -52,12 +55,14 @@ To execute the script, use the following command:
 ```
 
 ### How It Works
+
 When you run the script, you will be prompted to choose between exporting or importing VSCode extensions:
 
 - **Exporting:** The script lists all installed VSCode extensions and saves them to a file named `vscode-extensions.txt`.
 - **Importing:** The script reads the `vscode-extensions.txt` file and installs each extension automatically.
 
 #### Example Output of `vscode-extensions.txt`
+
 ```text
 ms-azuretools.vscode-docker
 ms-edgedevtools.vscode-edge-devtools
@@ -72,9 +77,9 @@ ms-vscode.vscode-typescript-next
 ```
 
 ### Why Use This Script?
+
 - Saves time when setting up a new machine.
 - Ensures you have the same extensions across multiple devices.
 - Eliminates the need to manually search and install extensions.
 
 With this simple script, managing VSCode extensions becomes effortless! 🚀
-

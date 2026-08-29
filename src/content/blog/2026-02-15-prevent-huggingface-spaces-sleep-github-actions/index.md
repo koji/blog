@@ -5,7 +5,7 @@ slug: 'prevent-huggingface-spaces-sleep-github-actions'
 description: 'Automatically keep your Hugging Face Space awake using GitHub Actions and agent-browser. Capture daily screenshots and send them to Discord for simple uptime monitoring.'
 pubDate: '2026-02-15'
 updatedDate: '2026-02-15'
-tags: ['HuggingFace','GitHubActions','Discord']
+tags: ['HuggingFace', 'GitHubActions', 'Discord']
 coverImage: './cover.png'
 ---
 
@@ -18,10 +18,10 @@ However, there is one limitation:
 If a Space is not accessed for 48 hours, it goes to sleep.
 
 This can be problematic when:
-	•	You share a demo URL and it’s slow on first access (cold start)
-	•	You host automation tools like n8n
-	•	You want your app to always feel “ready”
-	•	You want simple uptime monitoring
+• You share a demo URL and it’s slow on first access (cold start)
+• You host automation tools like n8n
+• You want your app to always feel “ready”
+• You want simple uptime monitoring
 
 To solve this, I built a small automation:
 
@@ -30,8 +30,8 @@ agent-browser opens the page and takes a screenshot
 The screenshot is posted to Discord
 
 This achieves both:
-	•	✅ Preventing sleep
-	•	✅ Visual uptime monitoring
+• ✅ Preventing sleep
+• ✅ Visual uptime monitoring
 
 In this article, I’ll show you exactly how to set it up.
 
@@ -42,10 +42,10 @@ Why use agent-browser?
 You could simply curl the Space URL.
 
 But I wanted:
-	•	A real browser access (not just HTTP ping)
-	•	To confirm the page fully renders
-	•	To capture a screenshot as proof
-	•	To visually verify that nothing is broken
+• A real browser access (not just HTTP ping)
+• To confirm the page fully renders
+• To capture a screenshot as proof
+• To visually verify that nothing is broken
 
 For that, I used agent-browser, a CLI browser automation tool built on Playwright.
 
@@ -63,7 +63,7 @@ Here is the exact YAML file I use:
 ```yaml
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: '0 0 * * *'
 
 jobs:
   access-hugging-face-n8n:
@@ -121,11 +121,7 @@ agent-browser wait --text "Sign in"
 agent-browser screenshot page.png
 agent-browser close
 
-What this does:
-	1.	Opens the Space in a real browser
-	2.	Waits until "Sign in" text appears (ensures full render)
-	3.	Takes a screenshot
-	4.	Closes the browser
+What this does: 1. Opens the Space in a real browser 2. Waits until "Sign in" text appears (ensures full render) 3. Takes a screenshot 4. Closes the browser
 
 The wait --text step prevents taking screenshots before the page is fully loaded.
 
@@ -136,19 +132,19 @@ You can change the text to something more specific to your app.
 4. Post Screenshot to Discord
 
 curl -X POST \
-  -F 'payload_json={"content":"Hugging Face access job done."}' \
-  -F "file1=@page.png;type=image/png" \
-  "${{ secrets.DISCORD_WEBHOOK_URL }}"
+-F 'payload_json={"content":"Hugging Face access job done."}' \
+-F "file1=@page.png;type=image/png" \
+"${{ secrets.DISCORD_WEBHOOK_URL }}"
 
 This sends:
-	•	A success message
-	•	The screenshot image
+• A success message
+• The screenshot image
 
 to your Discord channel via webhook.
 
 Now you have both:
-	•	Sleep prevention
-	•	Daily visual health check
+• Sleep prevention
+• Daily visual health check
 
 ⸻
 
@@ -159,13 +155,12 @@ In your GitHub repository:
 Settings → Secrets and variables → Actions
 
 Add:
-	•	HUGGING_FACE_SPACE_URL
-	•	DISCORD_WEBHOOK_URL
+• HUGGING_FACE_SPACE_URL
+• DISCORD_WEBHOOK_URL
 
 These are securely injected into the workflow using:
 
 ${{ secrets.SECRET_NAME }}
-
 
 ⸻
 
@@ -196,16 +191,14 @@ Add monitoring, metrics, multi-Space support.
 Optional Improvements
 
 You could extend this further:
-	•	Fail the job if specific text is missing
-	•	Measure page load time
-	•	Upload screenshots to S3 / R2
-	•	Monitor multiple Spaces in parallel
-	•	Add Slack notifications
-	•	Store screenshots as GitHub Action artifacts
+• Fail the job if specific text is missing
+• Measure page load time
+• Upload screenshots to S3 / R2
+• Monitor multiple Spaces in parallel
+• Add Slack notifications
+• Store screenshots as GitHub Action artifacts
 
 You can even turn this into a lightweight uptime monitoring system.
-
-
 
 ![huggingface_space](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4atpq7wecundwdeuzf3q.png)
 
@@ -220,10 +213,10 @@ But with:
 GitHub Actions + agent-browser
 
 you can:
-	•	Automatically keep your Space awake
-	•	Capture daily screenshots
-	•	Get notified via Discord
-	•	Monitor visual health
+• Automatically keep your Space awake
+• Capture daily screenshots
+• Get notified via Discord
+• Monitor visual health
 
 All without running your own server.
 

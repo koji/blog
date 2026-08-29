@@ -29,23 +29,24 @@ minimumReleaseAge: 43200 # 43200 minutes = 30 days
 ```
 
 **⚠️ The Emergency Hatch:**
-Sometimes you *need* a fresh release immediately—for example, to patch a critical security vulnerability in a library like `react`. In those cases, you can bypass this rule using `minimumReleaseAgeExclude`:
+Sometimes you _need_ a fresh release immediately—for example, to patch a critical security vulnerability in a library like `react`. In those cases, you can bypass this rule using `minimumReleaseAgeExclude`:
 **minimumReleaseAgeExclude** may need the latest pnpm version to work.
+
 ```yaml
 minimumReleaseAge: 43200
 # Allow urgent security patches for specific libraries
-minimumReleaseAgeExclude: 
+minimumReleaseAgeExclude:
   - react
   - react-dom
 ```
 
 ### 2\. Blocking Malware: Aikido Safe Chain
 
-While `minimumReleaseAge` protects against *new* threats, **Aikido Safe Chain** protects against *known* malware. It acts as a secure proxy between local machines and the npm registry.
+While `minimumReleaseAge` protects against _new_ threats, **Aikido Safe Chain** protects against _known_ malware. It acts as a secure proxy between local machines and the npm registry.
 
-  * **Malware Blocking:** Actively prevents known malware from reaching developer laptops.
-  * **Smart Gating:** It suppresses packages newer than 24 hours (acting as a safety net if our pnpm config is ever disabled).
-  * **Privacy:** It is tokenless and shares no build data.
+- **Malware Blocking:** Actively prevents known malware from reaching developer laptops.
+- **Smart Gating:** It suppresses packages newer than 24 hours (acting as a safety net if our pnpm config is ever disabled).
+- **Privacy:** It is tokenless and shares no build data.
 
 ### 3\. Reducing Attack Surface: `ignore-scripts`
 
@@ -63,9 +64,9 @@ Tools like `esbuild` or `sharp` require build steps to function. Whitelist them 
 
 ```json
 {
-  "pnpm": {
-    "onlyBuiltDependencies": ["esbuild", "sharp", "sqlite3"]
-  }
+	"pnpm": {
+		"onlyBuiltDependencies": ["esbuild", "sharp", "sqlite3"]
+	}
 }
 ```
 
@@ -75,7 +76,7 @@ Security is not a one-time setup. I automate vulnerability detection using **OSV
 
 I run this on a schedule (e.g., weekly) and post results to GitHub Security.
 
------
+---
 
 ### The GitHub Actions Workflow
 
@@ -90,7 +91,7 @@ name: Weekly Security Audit
 on:
   schedule:
     # every monday at 6:00 UTC
-    - cron: "0 6 * * 1"
+    - cron: '0 6 * * 1'
   workflow_dispatch: {}
 
 permissions:
@@ -178,7 +179,7 @@ jobs:
         if: always()
         run: |
           PNPM_ISSUES=""
-          
+
           # 3. Parse pnpm audit JSON
           if [ -s pnpm-audit.json ]; then
             # pnpm audit returns an "advisories" object. We map through it.
@@ -221,5 +222,3 @@ jobs:
             -d "$PAYLOAD" \
             "$DISCORD_WEBHOOK_URL"
 ```
-
-
