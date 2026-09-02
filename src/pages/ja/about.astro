@@ -1,0 +1,57 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import kojiImg from '@src/assets/img/koji.jpg';
+import Prose from '../../components/Prose.astro';
+import { useTranslations } from '@src/i18n/utils';
+
+const lang = 'ja' as const;
+const t = useTranslations(lang);
+---
+
+<BaseLayout title={t('page.about.title')} description={t('page.about.description')} lang={lang}>
+	<div class='container'>
+		<main>
+			<article>
+				<div class='w-full md:flex md:items-center gap-16 mb-10'>
+					<div class='text-pretty leading-[1.47]'>
+						<h1 class='text-[40px] font-semibold mb-4 text-apple-near-black dark:text-white leading-[1.07] tracking-[-0.28px]'>{t('page.about.greeting')}</h1>
+						<Prose>
+							<div class='text-[17px]'>
+								<p>
+									日本出身のソフトウェアエンジニアです。学んだことを共有するのが好きで、<a href='https://dev.to/0xkoji' target='_blank' rel='noopener noreferrer'>dev.to</a> や <a href='https://x.com/0xkoji' target='_blank' rel='noopener noreferrer'>x(ex-twitter)</a>、<a href='https://bsky.app/profile/baxin.bsky.social' target='_blank' rel='noopener noreferrer'>Bluesky</a> でも発信しています。
+								</p>
+							</div>
+						</Prose>
+					</div>
+					<Image src={kojiImg} alt='koji' width={300} class='rounded-apple-lg rotate-3 mx-4 md:mx-0 shadow-apple' />
+				</div>
+				<Prose>
+					<div>
+						<h4>
+							{t('page.about.heading.role')}
+						</h4>
+						<p>
+							{t('page.about.paragraph.roleIntro')}
+						</p>
+						<p>
+							{t('page.about.paragraph.journey1')}
+						</p>
+
+						<p>
+							{t('page.about.paragraph.journey2')}
+						</p>
+					</div>
+
+					<h4>{t('page.about.heading.next')}</h4>
+					<p>
+						{t('page.about.paragraph.next')}
+					</p>
+					<p>
+						<a href='https://www.linkedin.com/in/kojikanao' target='_blank' rel='noopener noreferrer'>LinkedIn</a> からお気軽にご連絡ください — 新たな機会やコラボレーションを常に歓迎しています！
+					</p>
+				</Prose>
+			</article>
+		</main>
+	</div>
+</BaseLayout>

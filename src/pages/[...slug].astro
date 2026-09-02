@@ -8,13 +8,15 @@ import AboutTheAuthor from '../components/widgets/AboutTheAuthor.astro';
 import TableOfContent from '../components/widgets/TableOfContent.astro';
 import { slugify } from '../utils';
 import { loadEnv } from 'vite';
+import { filterByLang, getBaseSlug, getLangFromId, useTranslations, getLocalizedPath } from '@src/i18n/utils';
 
 const { GISCUS_REPO, GISCUS_REPO_ID, GISCUS_CATEGORY, GISCUS_CATEGORY_ID } = loadEnv(process.env.NODE_ENV || 'production', process.cwd(), '');
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
+	const allPosts = await getCollection('blog');
+	const posts = filterByLang(allPosts as any, 'en');
 	return posts.map((post: any) => ({
-		params: { slug: post.id },
+		params: { slug: getBaseSlug(post) },
 		props: post
 	}));
 }
@@ -23,10 +25,12 @@ const post = Astro.props;
 const {
 	data: { title, seoTitle, description, coverImage, pubDate, updatedDate, tags }
 } = post;
-const { Content, headings } = await render(post);
+const { Content, headings } = await render(post as any);
+const lang = getLangFromId(post.id) as 'en' | 'ja';
+const t = useTranslations(lang);
 ---
 
-<BaseLayout title={seoTitle || title} description={description} image={coverImage?.src || undefined}>
+<BaseLayout title={seoTitle || title} description={description} image={coverImage?.src || undefined} lang={lang}>
 	<div class='container lg:flex gap-10'>
 		<main
 			class='overflow-hidden grow'
@@ -42,7 +46,7 @@ const { Content, headings } = await render(post);
                     (tags || [] )?.map((tag: string) => (
                       <a
                         class='tag-apple'
-                        href={`/tags/${slugify(tag)}`}>
+                        href={getLocalizedPath(`/tags/${slugify(tag)}/`, lang)}>
                         {tag}
                       </a>
                     ))
@@ -52,9 +56,9 @@ const { Content, headings } = await render(post);
               <div class='text-black/48 dark:text-white/48'>
                 {
                   updatedDate ?
-                    <>Updated on <strong class='text-apple-near-black dark:text-white font-semibold'><FormattedDate date={updatedDate} /></strong></>
+                    <>{t('post.updatedOn')} <strong class='text-apple-near-black dark:text-white font-semibold'><FormattedDate date={updatedDate} lang={lang} /></strong></>
                   :
-                    <>Published on <strong class='text-apple-near-black dark:text-white font-semibold'><FormattedDate date={pubDate} /></strong></>
+                    <>{t('post.publishedOn')} <strong class='text-apple-near-black dark:text-white font-semibold'><FormattedDate date={pubDate} lang={lang} /></strong></>
                 }
               </div>
             </div>
@@ -80,7 +84,7 @@ const { Content, headings } = await render(post);
               data-emit-metadata='0'
               data-input-position='bottom'
               data-theme='preferred_color_scheme'
-              data-lang='en'
+              data-lang={lang}
               crossorigin='anonymous'
               async></script>
         }
@@ -89,9 +93,9 @@ const { Content, headings } = await render(post);
 		</main>
     <div class='shrink-0 w-[280px] hidden md:block'>
       <div class='mb-4'>
-				<AboutTheAuthor />
+				<AboutTheAuthor lang={lang} />
 			</div>
-			<TableOfContent headings={headings} />
+			<TableOfContent headings={headings} lang={lang} />
 		</div>
 	</div>
 </BaseLayout>

@@ -3,23 +3,28 @@ import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PostsByYear from '../components/PostsByYear.astro';
+import { filterByLang, useTranslations } from '@src/i18n/utils';
 
 type BlogPost = CollectionEntry<'blog'>;
-const title = 'All posts on the blog'
-const description = 'Articles, guides, tutorials'
+const lang = 'en' as const;
+const t = useTranslations(lang);
+const title = t('page.index.title')
+const description = t('page.index.description')
 
-const posts = (await getCollection('blog')).sort((a: BlogPost, b: BlogPost) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const allPosts = await getCollection('blog');
+const posts = (filterByLang(allPosts as any, lang) as BlogPost[]).sort((a: BlogPost, b: BlogPost) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <BaseLayout
 	title={title}
 	description={description}
+	lang={lang}
 >
   <div class='container'>
     <div class="mb-10">
       <h1 class="text-[40px] font-semibold mb-2 text-apple-near-black dark:text-white leading-[1.10] tracking-[-0.28px]">{title}</h1>
       <p class="text-black/80 dark:text-white/80 text-[17px] leading-[1.47] tracking-[-0.374px]">{description}</p>
     </div>
-    <PostsByYear posts={posts}/>
+    <PostsByYear posts={posts} lang={lang}/>
   </div>
 </BaseLayout>

@@ -19,21 +19,157 @@ if [ ! -f "$TEMPLATE_PATH" ]; then
   exit 1
 fi
 
-printf 'Title: '
-IFS= read -r TITLE
+# Support CLI args: new-article "Title" [--ja] [--both] [--add-ja existing-dir]
+TITLE=""
+CREATE_JA="false"
+TITLE_JA=""
+ADD_JA_MODE="false"
+EXISTING_DIR=""
 
-if [ -z "$TITLE" ]; then
+for arg in "$@"; do
+  case "$arg" in
+    --ja)
+      CREATE_JA="true"
+      ;;
+    --both)
+      CREATE_JA="true"
+      ;;
+    --add-ja)
+      ADD_JA_MODE="true"
+      ;;
+    --help|-h)
+      echo "Usage: $0 [\"Title\"] [--ja|--both] [--add-ja <existing-dir>]"
+      echo "  Title: article title (en). If omitted, will prompt."
+      echo "  --ja/--both: also create index.ja.md (slug will be <slug>.ja)"
+      echo "  --add-ja: add Japanese version to existing article directory"
+      exit 0
+      ;;
+    *)
+      if [ -z "$TITLE" ] && [ "$ADD_JA_MODE" = "false" ]; then
+        TITLE="$arg"
+      elif [ "$ADD_JA_MODE" = "true" ] && [ -z "$EXISTING_DIR" ]; then
+        EXISTING_DIR="$arg"
+      elif [ -z "$TITLE_JA" ] && [ "$CREATE_JA" = "true" ]; then
+        TITLE_JA="$arg"
+      else
+        TITLE="$arg"
+      fi
+      ;;
+  esac
+done
+
+if [ -z "$TITLE" ] && [ "$ADD_JA_MODE" = "false" ]; then
+  printf 'Title (en): '
+  IFS= read -r TITLE
+fi
+
+if [ -z "$TITLE" ] && [ "$ADD_JA_MODE" = "false" ]; then
   echo 'Title cannot be empty.' >&2
   exit 1
 fi
 
+# Add-ja mode: add Japanese translation to existing article
+if [ "$ADD_JA_MODE" = "true" ]; then
+  if [ -z "$EXISTING_DIR" ]; then
+    printf 'Existing article directory (e.g. 2025-12-21-my-post): '
+    IFS= read -r EXISTING_DIR
+  fi
+  # Allow both "2025-12-21-my-post" and full path
+  if [ -d "$BLOG_ROOT/$EXISTING_DIR" ]; then
+    ARTICLE_DIR="$BLOG_ROOT/$EXISTING_DIR"
+  elif [ -d "$EXISTING_DIR" ]; then
+    ARTICLE_DIR="$EXISTING_DIR"
+  else
+    echo "Directory not found: $EXISTING_DIR (tried $BLOG_ROOT/$EXISTING_DIR)" >&2
+    exit 1
+  fi
+
+  if [ -f "$ARTICLE_DIR/index.ja.md" ]; then
+    echo "Japanese version already exists: $ARTICLE_DIR/index.ja.md" >&2
+    exit 1
+  fi
+
+  # Read existing en slug to derive ja slug
+  EXISTING_SLUG=$(sed -n "s/^slug: '\(.*\)'$/\1/p" "$ARTICLE_DIR/index.md" | head -n1)
+  if [ -z "$EXISTING_SLUG" ]; then
+    echo "Could not read slug from $ARTICLE_DIR/index.md" >&2
+    exit 1
+  fi
+  # If slug already ends with .ja, use as is, otherwise append .ja
+  case "$EXISTING_SLUG" in
+    *.ja) SLUG_JA="$EXISTING_SLUG" ;;
+    *) SLUG_JA="${EXISTING_SLUG}.ja" ;;
+  esac
+
+  if [ -z "$TITLE" ]; then
+    printf 'Title (ja) [auto]: '
+    IFS= read -r TITLE_JA
+    if [ -z "$TITLE_JA" ]; then
+      TITLE_JA=$(sed -n "s/^title: '\(.*\)'$/\1/p" "$ARTICLE_DIR/index.md" | head -n1 | sed "s/''/'/g")
+      if [ -z "$TITLE_JA" ]; then
+        TITLE_JA="$EXISTING_SLUG"
+      fi
+    fi
+  else
+    TITLE_JA="$TITLE"
+  fi
+
+  PUBDATE=$(sed -n "s/^pubDate: '\(.*\)'$/\1/p" "$ARTICLE_DIR/index.md" | head -n1)
+  if [ -z "$PUBDATE" ]; then
+    PUBDATE=$(date +%F)
+  fi
+
+  TITLE_JA_YAML=$(escape_yaml_single_quotes "$TITLE_JA")
+  TITLE_JA_SED=$(escape_sed_replacement "$TITLE_JA_YAML")
+  SLUG_JA_SED=$(escape_sed_replacement "$SLUG_JA")
+  PUBDATE_SED=$(escape_sed_replacement "$PUBDATE")
+
+  ARTICLE_JA_PATH="$ARTICLE_DIR/index.ja.md"
+  sed \
+    -e "s|^title: ''$|title: '$TITLE_JA_SED'|" \
+    -e "s|^seoTitle: ''$|seoTitle: '$TITLE_JA_SED'|" \
+    -e "s|^slug: ''$|slug: '$SLUG_JA_SED'|" \
+    -e "s|^pubDate: '.*'$|pubDate: '$PUBDATE_SED'|" \
+    -e "s|^updatedDate: '.*'$|updatedDate: '$PUBDATE_SED'|" \
+    "$TEMPLATE_PATH" > "$ARTICLE_JA_PATH"
+
+  # Copy description/tags from en if exists, but keep slug/title replaced above
+  # Already handled - user should edit description manually
+
+  printf 'Created %s (ja) for %s\n' "$ARTICLE_JA_PATH" "$ARTICLE_DIR"
+  printf 'Note: slug is "%s" (must end with .ja)\n' "$SLUG_JA"
+  exit 0
+fi
+
+# Normal creation mode
 SLUG=$(printf '%s' "$TITLE" \
   | tr '[:upper:]' '[:lower:]' \
   | sed -E 's/[^a-z0-9]+/-/g; s/^-+//; s/-+$//; s/-+/-/g')
 
 if [ -z "$SLUG" ]; then
-  echo 'Could not derive a slug from the title.' >&2
+  echo 'Could not derive a slug from the title. Please provide an English title with alphanumeric characters.' >&2
   exit 1
+fi
+
+# Prompt for Japanese version if not already decided via CLI
+if [ "$CREATE_JA" = "false" ] && [ $# -eq 0 ]; then
+  printf 'Create Japanese version as well? [y/N]: '
+  IFS= read -r CREATE_JA_ANSWER
+  case "$CREATE_JA_ANSWER" in
+    y|Y|yes|YES) CREATE_JA="true" ;;
+    *) CREATE_JA="false" ;;
+  esac
+fi
+
+if [ "$CREATE_JA" = "true" ] && [ -z "$TITLE_JA" ]; then
+  # Only prompt interactively if no CLI title provided
+  if [ $# -eq 0 ]; then
+    printf 'Title (ja) [same as en]: '
+    IFS= read -r TITLE_JA
+  fi
+  if [ -z "$TITLE_JA" ]; then
+    TITLE_JA="$TITLE"
+  fi
 fi
 
 DATE=$(date +%F)
@@ -41,6 +177,25 @@ ARTICLE_DIR="$BLOG_ROOT/$DATE-$SLUG"
 ARTICLE_PATH="$ARTICLE_DIR/index.md"
 
 if [ -e "$ARTICLE_DIR" ]; then
+  # If directory exists but user wants ja, create only ja file
+  if [ "$CREATE_JA" = "true" ] && [ ! -f "$ARTICLE_DIR/index.ja.md" ]; then
+    echo "Directory already exists: $ARTICLE_DIR - creating only Japanese version." >&2
+    SLUG_JA="${SLUG}.ja"
+    TITLE_JA_YAML=$(escape_yaml_single_quotes "$TITLE_JA")
+    TITLE_JA_SED=$(escape_sed_replacement "$TITLE_JA_YAML")
+    SLUG_JA_SED=$(escape_sed_replacement "$SLUG_JA")
+    DATE_SED=$(escape_sed_replacement "$DATE")
+    ARTICLE_JA_PATH="$ARTICLE_DIR/index.ja.md"
+    sed \
+      -e "s|^title: ''$|title: '$TITLE_JA_SED'|" \
+      -e "s|^seoTitle: ''$|seoTitle: '$TITLE_JA_SED'|" \
+      -e "s|^slug: ''$|slug: '$SLUG_JA_SED'|" \
+      -e "s|^pubDate: '.*'$|pubDate: '$DATE_SED'|" \
+      -e "s|^updatedDate: '.*'$|updatedDate: '$DATE_SED'|" \
+      "$TEMPLATE_PATH" > "$ARTICLE_JA_PATH"
+    printf 'Created %s (ja)\n' "$ARTICLE_JA_PATH"
+    exit 0
+  fi
   echo "Directory already exists: $ARTICLE_DIR" >&2
   exit 1
 fi
@@ -61,3 +216,19 @@ sed \
   "$TEMPLATE_PATH" > "$ARTICLE_PATH"
 
 printf 'Created %s\n' "$ARTICLE_PATH"
+
+if [ "$CREATE_JA" = "true" ]; then
+  SLUG_JA="${SLUG}.ja"
+  TITLE_JA_YAML=$(escape_yaml_single_quotes "$TITLE_JA")
+  TITLE_JA_SED=$(escape_sed_replacement "$TITLE_JA_YAML")
+  SLUG_JA_SED=$(escape_sed_replacement "$SLUG_JA")
+  ARTICLE_JA_PATH="$ARTICLE_DIR/index.ja.md"
+  sed \
+    -e "s|^title: ''$|title: '$TITLE_JA_SED'|" \
+    -e "s|^seoTitle: ''$|seoTitle: '$TITLE_JA_SED'|" \
+    -e "s|^slug: ''$|slug: '$SLUG_JA_SED'|" \
+    -e "s|^pubDate: '.*'$|pubDate: '$DATE_SED'|" \
+    -e "s|^updatedDate: '.*'$|updatedDate: '$DATE_SED'|" \
+    "$TEMPLATE_PATH" > "$ARTICLE_JA_PATH"
+  printf 'Created %s (ja, slug: %s)\n' "$ARTICLE_JA_PATH" "$SLUG_JA"
+fi

@@ -1,22 +1,31 @@
 ---
 import HeaderLink from './HeaderLink.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
 import { Image } from 'astro:assets';
 import KojiLogo from '@src/assets/img/small-koji.png';
 import GithubWhite from '@src/assets/img/github-mark-white.svg';
 import GithubBlack from '@src/assets/img/github-mark.svg';
 import LinkedInBlack from '@src/assets/img/linkedin-black.svg';
 import LinkedInWhite from '@src/assets/img/linkedin-white.svg';
+import { useTranslations, getLocalizedPath, type Lang } from '@src/i18n/utils';
+
+interface Props {
+	lang?: Lang;
+}
+const { lang = 'en' } = Astro.props as Props;
+const t = useTranslations(lang);
 
 const menu = [
 	{
-		link: '/tags/',
-		label: 'Tags'
+		link: getLocalizedPath('/tags/', lang),
+		label: t('nav.tags')
 	},
 	{
-		link: '/about/',
-		label: 'About'
+		link: getLocalizedPath('/about/', lang),
+		label: t('nav.about')
 	}
 ];
+const homeHref = getLocalizedPath('/', lang);
 
 const LINKEDIN_URL = 'https://www.linkedin.com/in/kojikanao';
 const GITHUB_LINK = 'https://github.com/koji/blog';
@@ -26,7 +35,7 @@ const GITHUB_LINK = 'https://github.com/koji/blog';
 	<div class='container'>
 		<nav class='flex gap-4 items-center justify-between py-3'>
 			<h2 class='m-0'>
-				<a href='/' class='flex gap-4 items-center'>
+				<a href={homeHref} class='flex gap-4 items-center'>
 					<Image src={KojiLogo} alt='Your site name' class='rounded-full w-11 shadow-apple' />
 				</a>
 			</h2>
@@ -49,7 +58,11 @@ const GITHUB_LINK = 'https://github.com/koji/blog';
 					<Image src={GithubWhite} width={24} height={24} alt='GitHub logo White' />
 				</a>
 
-				<button class='p-3' id='themeToggle' aria-label='Theme mode'>
+				<div class='ml-1'>
+					<LanguageSwitcher lang={lang} />
+				</div>
+
+				<button class='p-3' id='themeToggle' aria-label={t('nav.aria.themeToggle')}>
 					<svg
 						class='sun'
 						xmlns='http://www.w3.org/2000/svg'
@@ -85,7 +98,7 @@ const GITHUB_LINK = 'https://github.com/koji/blog';
 		<div class='fixed top-3 w-auto max-w-full px-3 left-1/2 -translate-x-1/2 z-[999]'>
 			<div class='flex px-3 bg-white/80 dark:bg-black/80 backdrop-blur-xl backdrop-saturate-[180%] leading-tight rounded-apple-pill border border-black/10 dark:border-white/10'>
 				<div class='px-2.5 text-sm'>
-					<HeaderLink class='py-3 flex items-center' href='/' aria-label='Home'>
+					<HeaderLink class='py-3 flex items-center' href={homeHref} aria-label={t('nav.home.aria')}>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
 							width='18'

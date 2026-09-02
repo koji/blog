@@ -3,15 +3,17 @@ import BaseHead from './components/BaseHead.astro';
 import Header from './components/Header.astro';
 import Footer from './components/Footer.astro';
 import { loadEnv } from 'vite';
+import { getLangFromUrl } from '@src/i18n/utils';
 
 const { GTAG_MEASUREMENT_ID } = loadEnv(process.env.NODE_ENV || 'production', process.cwd(), '');
-const { title, description, image } = Astro.props;
+const { title, description, image, lang } = Astro.props;
+const currentLang = lang ?? getLangFromUrl(Astro.url);
 ---
 
 <!doctype html>
-<html lang='en'>
+<html lang={currentLang}>
 	<head>
-		<BaseHead title={title} description={description} image={image} />
+		<BaseHead title={title} description={description} image={image} lang={currentLang} />
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -20,11 +22,11 @@ const { title, description, image } = Astro.props;
 	<body
 		class="bg-apple-light-gray dark:bg-black dark:text-white text-apple-near-black pt-16 sm:pt-0"
 	>
-		<Header/>
+		<Header lang={currentLang} />
 		<div class='py-8 min-h-[calc(100vh-160px)]'>
 			<slot />
 		</div>
-		<Footer />
+		<Footer lang={currentLang} />
 		<!-- Google tag (gtag.js) -->
     {
       GTAG_MEASUREMENT_ID &&

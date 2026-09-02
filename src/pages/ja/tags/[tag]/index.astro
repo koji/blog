@@ -1,0 +1,71 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import BaseLayout from '@src/layouts/BaseLayout.astro';
+import { slugify, unslugify } from '@src/utils';
+import PostsByYear from '@src/components/PostsByYear.astro';
+import { filterByLang, useTranslations, getBaseSlug } from '@src/i18n/utils';
+
+type BlogPost = CollectionEntry<'blog'>;
+const lang = 'ja' as const;
+
+export const getStaticPaths = async () => {
+	const allPostsRaw: BlogPost[] = await getCollection('blog');
+	const jaPosts = filterByLang(allPostsRaw as any, 'ja') as BlogPost[];
+	const enPosts = filterByLang(allPostsRaw as any, 'en') as BlogPost[];
+	const postsMap = new Map<string, any>();
+	for (const post of enPosts) {
+		const baseSlug = getBaseSlug(post);
+		const jaVersion = jaPosts.find(j => getBaseSlug(j) === baseSlug);
+		postsMap.set(baseSlug, (jaVersion ?? post) as any);
+	}
+	for (const post of jaPosts) {
+		const baseSlug = getBaseSlug(post);
+		if (!postsMap.has(baseSlug)) postsMap.set(baseSlug, post as any);
+	}
+	const allPosts = [...postsMap.values()];
+
+	const postsByTag = new Map<string, BlogPost[]>();
+
+	for (const post of allPosts) {
+		for (const rawTag of post.data.tags || []) {
+			const tag = slugify(rawTag);
+			if (!tag) continue;
+
+			const taggedPosts = postsByTag.get(tag);
+			if (taggedPosts) {
+				taggedPosts.push(post);
+			} else {
+				postsByTag.set(tag, [post]);
+			}
+		}
+	}
+
+	return [...postsByTag.entries()].map(([tag, taggedPosts]) => ({
+		params: { tag },
+		props: {
+			taggedPosts: taggedPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+		}
+	}));
+};
+
+const { tag } = Astro.params;
+const { taggedPosts = [] } = Astro.props as { taggedPosts?: BlogPost[] };
+const t = useTranslations(lang);
+const tagLabel = unslugify(tag || '');
+const title = t('page.tag.title', { tag: tagLabel });
+const description = t('page.tag.description', { tag: tagLabel });
+---
+
+<BaseLayout
+	title={title}
+	description={description}
+	lang={lang}
+>
+  <div class='container'>
+    <div class="mb-10">
+      <h1 class="text-[40px] font-semibold mb-2 text-apple-near-black dark:text-white leading-[1.10] tracking-[-0.28px]">{title}</h1>
+    </div>
+    <PostsByYear posts={taggedPosts} lang={lang}/>
+  </div>
+</BaseLayout>

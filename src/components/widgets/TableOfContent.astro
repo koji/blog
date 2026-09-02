@@ -1,5 +1,8 @@
 ---
-const { headings, maxLevel = 3 } = Astro.props;
+import { useTranslations, type Lang } from '@src/i18n/utils';
+
+const { headings, maxLevel = 3, lang = 'en' } = Astro.props;
+const t = useTranslations(lang as Lang);
 const toc = buildToc(headings);
 function buildToc(headings: any) {
 	const _toc: any = [];
@@ -20,7 +23,7 @@ function buildToc(headings: any) {
 ---
 
 <nav class='toc sticky top-4 py-2 lg:-ml-3'>
-	<h3 class='font-semibold uppercase mb-1 px-3 text-xs text-black/48 dark:text-white/48 tracking-[-0.12px]'>On This Page</h3>
+	<h3 class='font-semibold uppercase mb-1 px-3 text-xs text-black/48 dark:text-white/48 tracking-[-0.12px]'>{t('widget.toc.title')}</h3>
 	<ul class='toc-list max-h-[calc(100vh-70px)] overflow-auto text-[14px] tracking-[-0.224px]'>
 		{
 			toc.map((heading: any) => (

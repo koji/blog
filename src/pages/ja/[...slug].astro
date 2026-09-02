@@ -1,0 +1,206 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import Prose from '../../components/Prose.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import FormattedDate from '../../components/FormattedDate.astro';
+import AboutTheAuthor from '../../components/widgets/AboutTheAuthor.astro';
+import TableOfContent from '../../components/widgets/TableOfContent.astro';
+import { slugify } from '../../utils';
+import { loadEnv } from 'vite';
+import { getBaseSlug, useTranslations, getLocalizedPath, filterByLang } from '@src/i18n/utils';
+
+const { GISCUS_REPO, GISCUS_REPO_ID, GISCUS_CATEGORY, GISCUS_CATEGORY_ID } = loadEnv(process.env.NODE_ENV || 'production', process.cwd(), '');
+
+export async function getStaticPaths() {
+	const allPosts = await getCollection('blog');
+	// Group by base slug, prefer ja where exists, fallback to en
+	const enPosts = filterByLang(allPosts as any, 'en');
+	const jaPosts = filterByLang(allPosts as any, 'ja');
+
+	const jaMap = new Map<string, typeof jaPosts[0]>();
+	for (const p of jaPosts) {
+		jaMap.set(getBaseSlug(p), p);
+	}
+
+	const result: { params: { slug: string }, props: CollectionEntry<'blog'> }[] = [];
+
+	for (const enPost of enPosts) {
+		const baseSlug = getBaseSlug(enPost);
+		const jaPost = jaMap.get(baseSlug);
+		const post = jaPost ?? enPost;
+		result.push({
+			params: { slug: baseSlug },
+			props: post as any
+		});
+		// Remove from jaMap to avoid duplicate later if ja has no en counterpart
+		if (jaPost) jaMap.delete(baseSlug);
+	}
+
+	// Add remaining ja posts that have no en counterpart (edge case)
+	for (const [baseSlug, jaPost] of jaMap.entries()) {
+		result.push({
+			params: { slug: baseSlug },
+			props: jaPost as any
+		});
+	}
+
+	return result;
+}
+type Props = CollectionEntry<'blog'>;
+const post = Astro.props;
+const {
+	data: { title, seoTitle, description, coverImage, pubDate, updatedDate, tags }
+} = post;
+const { Content, headings } = await render(post as any);
+const lang = 'ja' as const;
+const t = useTranslations(lang);
+---
+
+<BaseLayout title={seoTitle || title} description={description} image={coverImage?.src || undefined} lang={lang}>
+	<div class='container lg:flex gap-10'>
+		<main
+			class='overflow-hidden grow'
+		>
+			<article>
+				<Prose>
+					<div>
+						<h1 class='!my-1 leading-[1.07] text-apple-near-black dark:text-white tracking-[-0.28px]'>{title}</h1>
+            <div class='text-sm mt-2 sm:mt-0 py-1 md:text-right flex flex-col sm:flex-row gap-3 sm:justify-between sm:items-center tracking-[-0.224px]'>
+              {
+                <div class='flex gap-2'>
+                  {
+                    (tags || [] )?.map((tag: string) => (
+                      <a
+                        class='tag-apple'
+                        href={getLocalizedPath(`/tags/${slugify(tag)}/`, lang)}>
+                        {tag}
+                      </a>
+                    ))
+                  }
+                </div>
+              }
+              <div class='text-black/48 dark:text-white/48'>
+                {
+                  updatedDate ?
+                    <>{t('post.updatedOn')} <strong class='text-apple-near-black dark:text-white font-semibold'><FormattedDate date={updatedDate} lang={lang} /></strong></>
+                  :
+                    <>{t('post.publishedOn')} <strong class='text-apple-near-black dark:text-white font-semibold'><FormattedDate date={pubDate} lang={lang} /></strong></>
+                }
+              </div>
+            </div>
+					</div>
+          <div class='py-3 overflow-hidden'>
+            {coverImage && <Image class='rounded-apple-lg w-full m-0 lg:mb-2' src={coverImage} alt={title} loading='eager' />}
+          </div>
+					<Content />
+				</Prose>
+        {
+          GISCUS_REPO &&
+            <script
+              id='giscus-script'
+              is:inline
+              src='https://giscus.app/client.js'
+              data-repo={GISCUS_REPO}
+              data-repo-id={GISCUS_REPO_ID}
+              data-category={GISCUS_CATEGORY}
+              data-category-id={GISCUS_CATEGORY_ID}
+              data-mapping='pathname'
+              data-strict='0'
+              data-reactions-enabled='1'
+              data-emit-metadata='0'
+              data-input-position='bottom'
+              data-theme='preferred_color_scheme'
+              data-lang={lang}
+              crossorigin='anonymous'
+              async></script>
+        }
+
+			</article>
+		</main>
+    <div class='shrink-0 w-[280px] hidden md:block'>
+      <div class='mb-4'>
+				<AboutTheAuthor lang={lang} />
+			</div>
+			<TableOfContent headings={headings} lang={lang} />
+		</div>
+	</div>
+</BaseLayout>
+
+<script async is:inline>
+	const anchors = Array.from(document.querySelectorAll('.prose h2[id], .prose h3[id]'));
+	const links = Array.from(document.querySelectorAll('nav.toc ul li a'));
+
+	const inactiveClasses = ['border-transparent', 'text-inherit'];
+	const activeClasses = ['border-blue-500', 'text-blue-600', 'dark:text-blue-400'];
+
+	const idToLink = new Map(
+		links
+			.map((link) => {
+				const href = link.getAttribute('href');
+				if (!href || !href.startsWith('#')) return null;
+				return [decodeURIComponent(href.slice(1)), link];
+			})
+			.filter(Boolean)
+	);
+
+	for (const link of links) {
+		link.classList.add(...inactiveClasses);
+		link.classList.remove(...activeClasses);
+	}
+
+	const setActiveLink = (id) => {
+		for (const link of links) {
+			link.classList.add(...inactiveClasses);
+			link.classList.remove(...activeClasses);
+		}
+
+		const activeLink = idToLink.get(id);
+		if (!activeLink) return;
+		activeLink.classList.remove(...inactiveClasses);
+		activeLink.classList.add(...activeClasses);
+	};
+
+	if (anchors.length > 0 && links.length > 0) {
+		const visibleHeadingIndexes = new Set();
+		const anchorIds = anchors.map((anchor) => decodeURIComponent(anchor.id));
+		const anchorToIndex = new Map(anchors.map((anchor, index) => [anchor, index]));
+
+		const updateActiveFromVisibleHeadings = () => {
+			if (visibleHeadingIndexes.size === 0) return;
+			const firstVisibleHeadingIndex = Math.min(...visibleHeadingIndexes);
+			setActiveLink(anchorIds[firstVisibleHeadingIndex]);
+		};
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				for (const entry of entries) {
+					const index = anchorToIndex.get(entry.target);
+					if (typeof index !== 'number') continue;
+
+					if (entry.isIntersecting) {
+						visibleHeadingIndexes.add(index);
+					} else {
+						visibleHeadingIndexes.delete(index);
+					}
+				}
+
+				updateActiveFromVisibleHeadings();
+			},
+			{
+				rootMargin: '-80px 0px -60% 0px',
+				threshold: [0, 1]
+			}
+		);
+
+		for (const anchor of anchors) {
+			observer.observe(anchor);
+		}
+	}
+
+	window.addEventListener('hashchange', () => {
+		const hashId = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+		if (!hashId) return;
+		setActiveLink(hashId);
+	});
+</script>

@@ -3,6 +3,10 @@ import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import BaseLayout from '@src/layouts/BaseLayout.astro';
 import { slugify } from '@src/utils';
+import { filterByLang, getLocalizedPath, useTranslations } from '@src/i18n/utils';
+
+const lang = 'en' as const;
+const t = useTranslations(lang);
 
 type BlogPost = CollectionEntry<'blog'>;
 interface Tag {
@@ -29,7 +33,8 @@ function groupTagsByFirstLetter(tags: Tag[]) {
     }));
 }
 
-const allPosts: BlogPost[] = await getCollection('blog');
+const allPostsRaw: BlogPost[] = await getCollection('blog');
+const allPosts = filterByLang(allPostsRaw, lang);
 const mappedTags: { [key: string]: Tag } = {};
 for (const post of allPosts) {
 	for (const tag of post.data?.tags || []) {
@@ -47,11 +52,11 @@ for (const post of allPosts) {
 	}
 }
 const groupedTags  = groupTagsByFirstLetter(Object.values(mappedTags))
-const title = `All Tags`;
-const description = 'Post tags: concise keywords categorizing content for easy navigation and improved searchability'
+const title = t('page.tags.title');
+const description = t('page.tags.description');
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} lang={lang}>
 	<div class='container'>
     <div class="mb-10">
       <h1 class="text-[40px] font-semibold mb-2 text-apple-near-black dark:text-white leading-[1.10] tracking-[-0.28px]">{title}</h1>
@@ -66,7 +71,7 @@ const description = 'Post tags: concise keywords categorizing content for easy n
               (tags || [] )?.map((tag: Tag) => (
                 <a
                   class='tag-apple'
-                  href={`/tags/${tag.value}/`}>
+                  href={getLocalizedPath(`/tags/${tag.value}/`, lang)}>
                   {tag.label} ({tag.postCount})
                 </a>
               ))
