@@ -1,4 +1,11 @@
 ---
+import { useTranslations } from '@src/i18n/utils';
+
+interface Props {
+	lang?: string;
+}
+const { lang = 'en' } = Astro.props as Props;
+const t = useTranslations(lang as 'en' | 'ja');
 const today = new Date();
 ---
 
@@ -6,8 +13,8 @@ const today = new Date();
 	<div class='container'>
 		<div class='py-6'>
 			<div class='md:flex text-xs text-black/48 dark:text-white/48 justify-between tracking-[-0.12px]'>
-				<div>Copyright &copy; {today.getFullYear()} koji.</div>
-				<div>Template created by <a href='https://devaradise.com' target='_blank' rel='nofollow noopener' class='text-apple-link-blue dark:text-apple-bright-blue hover:underline'>Syakir @ Devaradise</a></div>
+				<div>{t('footer.copyright', { year: today.getFullYear() })}</div>
+				<div>{t('footer.template', { author: '' })}<a href='https://devaradise.com' target='_blank' rel='nofollow noopener' class='text-apple-link-blue dark:text-apple-bright-blue hover:underline'>{t('footer.template.author')}</a></div>
 			</div>
 		</div>
 	</div>

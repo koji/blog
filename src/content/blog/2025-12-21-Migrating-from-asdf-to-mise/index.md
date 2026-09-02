@@ -11,7 +11,7 @@ coverImage: 'cover.png'
 
 ## 1. Remove asdf plugins and uninstall asdf
 
-```
+```shell
 # remove plugins
 asdf plugin list | xargs -n 1 asdf plugin remove
 
@@ -22,7 +22,7 @@ brew autoremove
 
 clean up `.zshrc`
 
-```
+```shell
 # ASDF configuration
 . "$BREW_PREFIX/opt/asdf/libexec/asdf.sh"
 ```

@@ -3,7 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import PostItem from './PostItem.astro';
 
 type BlogPost = CollectionEntry<'blog'>;
-const { posts } = Astro.props;
+const { posts, lang } = Astro.props;
 
 function groupPostsByYear(posts: BlogPost[]) {
 	const grouped = posts.reduce(
@@ -35,7 +35,7 @@ const groupedPosts = groupPostsByYear(posts);
 			<h2 class='text-[28px] font-semibold mb-4 text-apple-near-black dark:text-white tracking-[0.196px] leading-[1.14]'>{year}</h2>
 			<div>
 				{posts.map((post: BlogPost, i: number) => (
-					<PostItem post={post} key={`post-${i}`} />
+					<PostItem post={post} lang={lang} key={`post-${i}`} />
 				))}
 			</div>
 		</div>

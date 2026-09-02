@@ -1,0 +1,99 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import BaseLayout from '@src/layouts/BaseLayout.astro';
+import { slugify } from '@src/utils';
+import { filterByLang, getLocalizedPath, useTranslations, getBaseSlug } from '@src/i18n/utils';
+
+const lang = 'ja' as const;
+const t = useTranslations(lang);
+
+type BlogPost = CollectionEntry<'blog'>;
+interface Tag {
+	value: string;
+	label: string;
+	postCount: number;
+}
+
+function groupTagsByFirstLetter(tags: Tag[]) {
+  const grouped = tags.reduce((acc, tag) => {
+    const firstLetter = tag.label[0].toUpperCase();
+    if (!acc[firstLetter]) {
+      acc[firstLetter] = [];
+    }
+    acc[firstLetter].push(tag);
+    return acc;
+  }, {} as Record<string, Tag[]>);
+
+  return Object.entries(grouped)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([letter, tags]) => ({
+      letter,
+      tags: tags.sort((a, b) => a.label.localeCompare(b.label)),
+    }));
+}
+
+const allPostsRaw: BlogPost[] = await getCollection('blog');
+
+// For ja, show tags from both ja and fallback en posts (like index does)
+const jaPosts = filterByLang(allPostsRaw as any, 'ja') as BlogPost[];
+const enPosts = filterByLang(allPostsRaw as any, 'en') as BlogPost[];
+const postsMap = new Map<string, any>();
+for (const post of enPosts) {
+  const baseSlug = getBaseSlug(post);
+  const jaVersion = jaPosts.find(j => getBaseSlug(j) === baseSlug);
+  postsMap.set(baseSlug, (jaVersion ?? post) as any);
+}
+for (const post of jaPosts) {
+  const baseSlug = getBaseSlug(post);
+  if (!postsMap.has(baseSlug)) postsMap.set(baseSlug, post as any);
+}
+const allPosts = [...postsMap.values()];
+
+const mappedTags: { [key: string]: Tag } = {};
+for (const post of allPosts) {
+	for (const tag of post.data?.tags || []) {
+		const tagValue = slugify(tag);
+		if (mappedTags[tagValue]) {
+			mappedTags[tagValue].postCount += 1;
+		} else {
+			const _tag: Tag = {
+				value: tagValue,
+				label: tag,
+				postCount: 1
+			};
+			mappedTags[tagValue] = _tag;
+		}
+	}
+}
+const groupedTags  = groupTagsByFirstLetter(Object.values(mappedTags))
+const title = t('page.tags.title');
+const description = t('page.tags.description');
+---
+
+<BaseLayout title={title} description={description} lang={lang}>
+	<div class='container'>
+    <div class="mb-10">
+      <h1 class="text-[40px] font-semibold mb-2 text-apple-near-black dark:text-white leading-[1.10] tracking-[-0.28px]">{title}</h1>
+      <p class="text-black/80 dark:text-white/80 text-[17px] leading-[1.47] tracking-[-0.374px]">{description}</p>
+    </div>
+    <div>
+      {groupedTags.map(({ letter, tags }) => (
+        <div class="flex gap-3 border-b border-black/10 dark:border-white/10 py-4 mb-5 capitalize">
+          <h2 class="text-[28px] font-semibold text-apple-near-black dark:text-white w-8 shrink-0 tracking-[0.196px] leading-[1.14]">{letter}</h2>
+          <div class='flex gap-2 flex-wrap items-center'>
+            {
+              (tags || [] )?.map((tag: Tag) => (
+                <a
+                  class='tag-apple'
+                  href={getLocalizedPath(`/tags/${tag.value}/`, lang)}>
+                  {tag.label} ({tag.postCount})
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      ))}
+    </div>
+	</div>
+</BaseLayout>

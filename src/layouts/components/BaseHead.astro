@@ -8,11 +8,17 @@ interface Props {
 	title: string;
 	description: string;
 	image?: string;
+	lang?: string;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = '/syakir.webp' } = Astro.props;
+const { title, description, image = '/syakir.webp', lang = 'en' } = Astro.props;
+
+// Build hreflang URLs for i18n
+const basePath = Astro.url.pathname.replace(/^\/ja(?=\/|$)/, '') || '/';
+const enURL = new URL(basePath, Astro.site);
+const jaURL = new URL(`/ja${basePath === '/' ? '/' : basePath}`, Astro.site);
 ---
 
 <!-- Global Metadata -->
@@ -45,3 +51,10 @@ const { title, description, image = '/syakir.webp' } = Astro.props;
 <meta property='twitter:title' content={title} />
 <meta property='twitter:description' content={description} />
 <meta property='twitter:image' content={new URL(image, Astro.url)} />
+
+<!-- i18n hreflang -->
+<link rel='alternate' hreflang='en' href={enURL} />
+<link rel='alternate' hreflang='ja' href={jaURL} />
+<link rel='alternate' hreflang='x-default' href={enURL} />
+<meta property='og:locale' content={lang === 'ja' ? 'ja_JP' : 'en_US'} />
+{lang === 'ja' ? <meta property='og:locale:alternate' content='en_US' /> : <meta property='og:locale:alternate' content='ja_JP' />}

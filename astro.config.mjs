@@ -11,9 +11,25 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
 	site: 'https://baxin.pages.dev/',
 
+	i18n: {
+		defaultLocale: 'en',
+		locales: ['en', 'ja'],
+		routing: {
+			prefixDefaultLocale: false
+		}
+	},
+
 	integrations: [
 		mdx(),
-		sitemap(),
+		sitemap({
+			i18n: {
+				defaultLocale: 'en',
+				locales: {
+					en: 'en',
+					ja: 'ja'
+				}
+			}
+		}),
 		partytown({
 			// Adds dataLayer.push as a forwarding-event.
 			config: {

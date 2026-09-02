@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostsByYear from '../../components/PostsByYear.astro';
+import { filterByLang, useTranslations, getBaseSlug } from '@src/i18n/utils';
+
+type BlogPost = CollectionEntry<'blog'>;
+const lang = 'ja' as const;
+const t = useTranslations(lang);
+const title = t('page.index.title')
+const description = t('page.index.description')
+
+const allPosts = await getCollection('blog');
+const enPosts = filterByLang(allPosts as any, 'en');
+const jaPosts = filterByLang(allPosts as any, 'ja');
+
+// Build a map from base slug to ja post if exists, otherwise fallback to en
+// For the index we show ja posts where available, plus en fallbacks? For now show ja posts plus en posts that have no ja version? Simpler: show ja posts only + fallback logic via map
+// Combine: prefer ja, fallback to en for missing
+const postsMap = new Map<string, any>();
+for (const post of enPosts) {
+  const baseSlug = getBaseSlug(post);
+  const jaVersion = jaPosts.find(j => getBaseSlug(j) === baseSlug);
+  postsMap.set(baseSlug, (jaVersion ?? post) as any);
+}
+// If there are ja posts with no en counterpart (unlikely), add them
+for (const post of jaPosts) {
+  const baseSlug = getBaseSlug(post);
+  if (!postsMap.has(baseSlug)) postsMap.set(baseSlug, post as any);
+}
+
+const posts = [...postsMap.values()].sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout
+	title={title}
+	description={description}
+	lang={lang}
+>
+  <div class='container'>
+    <div class="mb-10">
+      <h1 class="text-[40px] font-semibold mb-2 text-apple-near-black dark:text-white leading-[1.10] tracking-[-0.28px]">{title}</h1>
+      <p class="text-black/80 dark:text-white/80 text-[17px] leading-[1.47] tracking-[-0.374px]">{description}</p>
+    </div>
+    <PostsByYear posts={posts} lang={lang} />
+  </div>
+</BaseLayout>

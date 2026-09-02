@@ -4,10 +4,12 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@src/layouts/BaseLayout.astro';
 import { slugify, unslugify } from '@src/utils';
 import PostsByYear from '@src/components/PostsByYear.astro';
+import { filterByLang, useTranslations } from '@src/i18n/utils';
 
 type BlogPost = CollectionEntry<'blog'>;
 export const getStaticPaths = async () => {
-	const allPosts: BlogPost[] = await getCollection('blog');
+	const allPostsRaw: BlogPost[] = await getCollection('blog');
+	const allPosts = filterByLang(allPostsRaw, 'en');
 	const postsByTag = new Map<string, BlogPost[]>();
 
 	for (const post of allPosts) {
@@ -31,21 +33,24 @@ export const getStaticPaths = async () => {
 		}
 	}));
 };
-
+const lang = 'en' as const;
 const { tag } = Astro.params;
 const { taggedPosts = [] } = Astro.props as { taggedPosts?: BlogPost[] };
-const title = `All Posts Tagged with ${unslugify(tag || '')}`;
-const description = `All Posts Tagged with ${unslugify(tag || '')}`;
+const t = useTranslations(lang);
+const tagLabel = unslugify(tag || '');
+const title = t('page.tag.title', { tag: tagLabel });
+const description = t('page.tag.description', { tag: tagLabel });
 ---
 
 <BaseLayout
 	title={title}
 	description={description}
+	lang={lang}
 >
   <div class='container'>
     <div class="mb-10">
       <h1 class="text-[40px] font-semibold mb-2 text-apple-near-black dark:text-white leading-[1.10] tracking-[-0.28px]">{title}</h1>
     </div>
-    <PostsByYear posts={taggedPosts}/>
+    <PostsByYear posts={taggedPosts} lang={lang}/>
   </div>
 </BaseLayout>
